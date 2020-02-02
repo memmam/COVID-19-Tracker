@@ -69,7 +69,7 @@ nCov_tweet = f"""{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {
 
 JH = Johns Hopkins, QQ = Tencent QQ News
 
-#WuhanPneumonia #nCov #coronavirus""
+#WuhanPneumonia #nCov #coronavirus"""
 
 # Test print / terminal output
 print(nCov_tweet)
