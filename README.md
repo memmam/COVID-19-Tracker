@@ -1,5 +1,11 @@
-# 2019-nCov Tracker v1.0a
+# 2019-nCov Tracker v1.0b
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
+
+# Changelog
+
+- 1.0b - changed hashtags, removed commas from numbers to make them all fit
+- 1.0a - removed double tweepy import
+- 1.0 - Initial version!
 
 # To create your own instance:
 
@@ -44,7 +50,7 @@ NUM (JH) / NUM (QQ) confirmed recoveries
 
 JH = Johns Hopkins, QQ = Tencent QQ News
 
-#2019nCov #coronavirus
+#Wuhan #WuhanVirus #WuhanPneumonia #WuhanCoronavirus #coronavirus
 ```
 
 This bot will, if functioning normally, post an update once every hour. If any problems arise, please report them to @Math#7777 on Discord.
