@@ -60,18 +60,19 @@ except:
     jh_recovered = 'NaN'
 
 # Construct datecode
-datecode = f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC"
+datecode = f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02} UTC"
 
 # Construct statistics
-stats = f"""{jh_total:,} (JH) / {qq_total:,} (QQ) confirmed cases
-{qq_suspect:,} (QQ) suspected cases
-{jh_dead:,} (JH) / {qq_dead:,} (QQ) confirmed deaths
-{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) confirmed recoveries
+stats = f"""{jh_total:,} (JH) / {qq_total:,} (QQ) cases
+{qq_suspect:,} (QQ) suspected
+{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths
+{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries
 
-JH = Johns Hopkins, QQ = Tencent QQ News"""
+JH = Johns Hopkins
+QQ = Tencent QQ News"""
 
 # Define hashtags
-hashtags = "#WuhanPneumonia #nCov #coronavirus"
+hashtags = "#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019"
 
 # Build tweet string
 nCov_tweet = f"""{datecode}
