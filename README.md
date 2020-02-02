@@ -3,9 +3,17 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 
 # Changelog
 
-- 1.0b - changed hashtags, removed commas from numbers to make them all fit
-- 1.0a - removed double tweepy import
-- 1.0 - Initial version!
+## 1.0b
+
+changed hashtags, removed commas from numbers to make them all fit
+
+## 1.0a
+
+removed double tweepy import
+
+## 1.0
+
+Initial version!
 
 # To create your own instance:
 
