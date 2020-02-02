@@ -62,14 +62,14 @@ except:
 # Build tweet string
 nCov_tweet = f"""{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC
 
-{jh_total:,} (JH) / {qq_total:,} (QQ) confirmed cases
-{qq_suspect:,} (QQ) suspected cases
-{jh_dead:,} (JH) / {qq_dead:,} (QQ) confirmed deaths
-{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) confirmed recoveries
+{jh_total} (JH) / {qq_total} (QQ) confirmed cases
+{qq_suspect} (QQ) suspected cases
+{jh_dead} (JH) / {qq_dead} (QQ) confirmed deaths
+{jh_recovered} (JH) / {qq_recovered} (QQ) confirmed recoveries
 
 JH = Johns Hopkins, QQ = Tencent QQ News
 
-#2019nCov #coronavirus"""
+#Wuhan #WuhanVirus #WuhanPneumonia #WuhanCoronavirus #coronavirus"""
 
 # Test print / terminal output
 print(nCov_tweet)
