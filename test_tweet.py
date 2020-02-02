@@ -20,7 +20,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True,
 utctime = time.gmtime()
 
 # Build tweet string
-test_tweet = """ AUTOMATED POST TEST
+test_tweet = f""" AUTOMATED POST TEST
 {utctime.tm_year}-{utctime.tm_mon}-{utctime.tm_mday} {utctime.tm_hour}:{utctime.tm_min}:{utctime.tm_sec} UTC"""
 
 # Test print / terminal output
