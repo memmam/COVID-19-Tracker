@@ -51,6 +51,6 @@ This bot will, if functioning normally, post an update once every hour. If any p
 
 Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scraping code.
 Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
-Credit to the CDC for this account's profile picture.
+Credit to the CDC for the official instance's Twitter profile picture.
 
 This bot is powered by Python 3 and the [Tweepy](https://www.tweepy.org/) library.
