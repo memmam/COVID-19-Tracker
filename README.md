@@ -3,25 +3,20 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 
 # Changelog
 
+## 1.2
+
+- 1.2: Tweet is now constructed entirely modularly across separate strings for the date, statistics, and hashtags
+
 ## 1.1
 
-Hashtags are now stored as a separate string from the main tweet f-string for ease of editing/modularity
+- 1.1: Hashtags are now stored as a separate string from the main tweet f-string for ease of editing/modularity
 
-## 1.0b-1
+## 1.0x
 
-Adjusted hashtags, re-added commas
-
-## 1.0b
-
-Changed hashtags, removed commas from numbers to make them all fit
-
-## 1.0a
-
-Removed double tweepy import
-
-## 1.0
-
-Initial version!
+- 1.0b-1: Adjusted hashtags, re-added commas
+- 1.0b: Changed hashtags, removed commas from numbers to make them all fit
+- 1.0a: Removed double tweepy import
+- 1.0: Initial version!
 
 # To create your own instance:
 
