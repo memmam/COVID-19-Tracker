@@ -75,7 +75,7 @@ JH = Johns Hopkins, QQ = Tencent QQ News
 {hashtags}"""
 
 # Test print / terminal output
-print(nCov_tweet)
+print(f"\n{nCov_tweet}")
 
 # Send tweet
 api.update_status(nCov_tweet)
