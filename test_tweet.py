@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Test script for debugging cron, posts a test message with a timestamp
 
 import time
