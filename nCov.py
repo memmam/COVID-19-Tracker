@@ -1,5 +1,4 @@
 import time
-import tweepy
 import requests
 import json
 
