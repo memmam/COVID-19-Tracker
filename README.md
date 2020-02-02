@@ -3,7 +3,9 @@ Twitter bot for posting information on spread of 2019-nCov.
 
 # To create your own instance:
 
-1. Make a `credentials.py` file in the following format:
+1. Sign up for Twitter API access [here](https://developer.twitter.com/) and make note of your consumer key, consumer secret, access token, and access token secret. _TWITTER WILL ONLY SHOW YOU YOUR ACCESS TOKEN AND ACCESS TOKEN SECRET **ONCE,** SO DON'T LOSE THEM._ **DO NOT SHARE THESE WITH ANYONE OR THEY CAN TAKE OVER YOUR TWITTER ACCOUNT.**
+
+2. Make a `credentials.py` file in the following format:
 
 ```
 import tweepy
@@ -17,7 +19,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 ```
 
-2. Install the Tweepy module, and create a Cron job to run nCov.py at an interval of your choosing.
+3. Install the Tweepy module, and create a Cron job to run nCov.py at an interval of your choosing.
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
