@@ -1,7 +1,10 @@
-# 2019-nCov Tracker v1.5
+# 2019-nCov Tracker v2.0-beta
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
+
+## 2.0-beta:
+- Major code refactor in preparation for currently not-implemented v2.0 location-based updates
 
 ## 1.5x:
 - 1.5: Tweets now stored as a list for mass output (backend work for v2.0 update)
