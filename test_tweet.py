@@ -22,3 +22,9 @@ utctime = time.gmtime()
 # Build tweet string
 test_tweet = """ AUTOMATED POST TEST
 {utctime.tm_year}-{utctime.tm_mon}-{utctime.tm_mday} {utctime.tm_hour}:{utctime.tm_min}:{utctime.tm_sec} UTC"""
+
+# Test print / terminal output
+print(test_tweet)
+
+# Send tweet
+api.update_status(test_tweet)
