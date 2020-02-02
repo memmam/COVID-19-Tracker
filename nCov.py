@@ -75,7 +75,7 @@ QQ = Tencent QQ News"""
 hashtags = "#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019"
 
 # Create tweet list
-tweet_list = [0]
+tweet_list = []
 
 # Build statistics tweet
 stats_tweet = f"""{datecode}
@@ -85,7 +85,7 @@ stats_tweet = f"""{datecode}
 {hashtags}"""
 
 # Add stats tweet to list
-tweet_list.extend(stats_tweet)
+tweet_list.extend([stats_tweet])
 
 # Prepare for list output
 length = len(tweet_list)
