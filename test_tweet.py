@@ -22,7 +22,7 @@ utctime = time.gmtime()
 
 # Build tweet string
 test_tweet = f""" AUTOMATED POST TEST
-{utctime.tm_year}-{utctime.tm_mon}-{utctime.tm_mday} {utctime.tm_hour}:{utctime.tm_min}:{utctime.tm_sec} UTC"""
+{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC"""
 
 # Test print / terminal output
 print(test_tweet)
