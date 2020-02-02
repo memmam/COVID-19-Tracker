@@ -3,12 +3,12 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 
 # Changelog
 
-## 1.2
+## 1.2x
 
 - 1.2a: Tweet format overhaul
 - 1.2: Tweet is now constructed entirely modularly across separate strings for the date, statistics, and hashtags
 
-## 1.1
+## 1.1x
 
 - 1.1: Hashtags are now stored as a separate string from the main tweet f-string for ease of editing/modularity
 
