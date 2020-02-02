@@ -1,4 +1,4 @@
-# 2019-nCov-Tracker
+# 2019-nCov Tracker v1.0a
 Twitter bot for posting information on spread of 2019-nCov.
 
 # To create your own instance:
