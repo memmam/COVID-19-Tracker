@@ -36,7 +36,9 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 ```
 
-4. Install the Tweepy library, and create a cronjob to run nCov.py at an interval of your choosing. Do not use a Python virtual environment, or the cronjob will fail.
+4. Install the Tweepy library, and create a cronjob to run nCov.py at an interval of your choosing. 
+
+NOTE: In my experience, using a Python virtual environment caused the cronjob to fail, so I had to install the Tweepy library directly. This is generally not recommended unless all your machine is doing is running the bot. If you know a way to get cron to run nCov.py from within the virtual environment, please let me know so I can update this.
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
