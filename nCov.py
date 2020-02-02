@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import time
 import requests
 import json
