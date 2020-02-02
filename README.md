@@ -5,7 +5,7 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 
 ## 1.0b
 
-changed hashtags, removed commas from numbers to make them all fit
+Adjusted hashtags
 
 ## 1.0a
 
