@@ -74,15 +74,26 @@ QQ = Tencent QQ News"""
 # Define hashtags
 hashtags = "#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019"
 
-# Build tweet string
-nCov_tweet = f"""{datecode}
+# Create tweet list
+tweet_list = [0]
+
+# Build statistics tweet
+stats_tweet = f"""{datecode}
 
 {stats}
 
 {hashtags}"""
 
-# Test print / terminal output
-print(f"\n{nCov_tweet}")
+# Add stats tweet to list
+tweet_list.extend(stats_tweet)
 
-# Send tweet
-api.update_status(nCov_tweet)
+# Prepare for list output
+length = len(tweet_list)
+
+# Output and post all tweets in list
+for i in range(length):
+    # Test print / terminal output
+    print(f"\n{tweet_list[i]}")
+
+    # Send tweet
+    api.update_status(tweet_list[i])
