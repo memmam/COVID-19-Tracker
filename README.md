@@ -1,10 +1,11 @@
-# 2019-nCov Tracker v1.2
+# 2019-nCov Tracker v1.2a
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
 
 ## 1.2
 
+- 1.2a: Tweet format overhaul
 - 1.2: Tweet is now constructed entirely modularly across separate strings for the date, statistics, and hashtags
 
 ## 1.1
@@ -54,16 +55,17 @@ Tweets are time-and-datestamped based on time of data being fetched and posted t
 Tweets are in the following format:
 
 ```
-YYYY-MM-DD HH:MM:SS UTC
+YYYY-MM-DD HH:MM UTC
 
-NUM (JH) / NUM (QQ) confirmed cases
-NUM (QQ) suspected cases
-NUM (JH) / NUM (QQ) confirmed deaths
-NUM (JH) / NUM (QQ) confirmed recoveries
+N,NNN,NNN (JH) / N,NNN,NNN (QQ) cases
+N,NNN,NNN (QQ) suspected
+N,NNN,NNN (JH) / N,NNN,NNN (QQ) deaths
+N,NNN,NNN (JH) / N,NNN,NNN (QQ) recovered
 
-JH = Johns Hopkins, QQ = Tencent QQ News
+JH = Johns Hopkins
+QQ = Tencent QQ News
 
-#Wuhan #WuhanVirus #WuhanPneumonia #WuhanCoronavirus #coronavirus
+#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019
 ```
 
 This bot will, if functioning normally, post an update once every hour. If any problems arise, please report them to @Math#7777 on Discord.
