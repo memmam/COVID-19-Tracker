@@ -59,18 +59,24 @@ try:
 except:
     jh_recovered = 'NaN'
 
-# Define hashtags
-hashtags = "#WuhanPneumonia #nCov #coronavirus"
+# Construct datecode
+datecode = f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC"
 
-# Build tweet string
-nCov_tweet = f"""{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC
-
-{jh_total:,} (JH) / {qq_total:,} (QQ) confirmed cases
+# Construct statistics
+stats = f"""{jh_total:,} (JH) / {qq_total:,} (QQ) confirmed cases
 {qq_suspect:,} (QQ) suspected cases
 {jh_dead:,} (JH) / {qq_dead:,} (QQ) confirmed deaths
 {jh_recovered:,} (JH) / {qq_recovered:,} (QQ) confirmed recoveries
 
-JH = Johns Hopkins, QQ = Tencent QQ News
+JH = Johns Hopkins, QQ = Tencent QQ News"""
+
+# Define hashtags
+hashtags = "#WuhanPneumonia #nCov #coronavirus"
+
+# Build tweet string
+nCov_tweet = f"""{datecode}
+
+{stats}
 
 {hashtags}"""
 
