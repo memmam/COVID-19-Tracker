@@ -3,12 +3,13 @@ import argparse
 import getopt
 import time
 import requests, json
-import gspread, oauth2client, pickle
+import gspread pickle
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Import our Twitter credentials from credentials.py
 from credentials import *
 
-def getapi():
+def get_twitter_api():
     # Authenticate to Twitter
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -19,7 +20,23 @@ def getapi():
     
     return auth, api
 
-def getqq(headers):
+def get_gdrive_api():
+    # get API access
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+    client = gspread.authorize(creds)
+
+    return client
+
+def get_jh_worksheet():
+    # get API access and fetch latest worksheet
+    client = get_gdrive_api()
+    jh_sheet = client.open_by_key('1ZJCEHKijIMVSJvH74C-LIUJb7BAHqj6b')
+    jh_worksheet = jh_sheet.get_worksheet(0)
+
+    return jh_worksheet
+
+def get_qq(headers):
     # Get QQ
     try:
         qq_res = requests.get('https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',headers=headers)
@@ -37,7 +54,7 @@ def getqq(headers):
 
     return qq_total, qq_suspect, qq_recovered, qq_dead
 
-def getjh(headers):
+def get_jh(headers):
     # Get Johns Hopkins total
     try:
         jh_total_res = requests.get('https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Confirmed%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&outSR=102100&cacheHint=true',headers=headers)
@@ -62,15 +79,15 @@ def getjh(headers):
     except:
         jh_recovered = 'NaN'
 
-    return jh_total, jh_dead, jh_recovered
+    return jh_total, jh_dead, jh_recovered, jh_worksheet
 
 def build_stats_tweet(datecode):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # scrapers
-    qq_total, qq_suspect, qq_recovered, qq_dead = getqq(headers)
-    jh_total, jh_dead, jh_recovered = getjh(headers)
+    qq_total, qq_suspect, qq_recovered, qq_dead = get_qq(headers)
+    jh_total, jh_dead, jh_recovered = get_jh(headers)
 
    # Construct statistics
     stats = (f"""{jh_total:,} (JH) / {qq_total:,} (QQ) cases\n"""
@@ -90,6 +107,13 @@ def build_stats_tweet(datecode):
 
     return stats_tweet
 
+def build_replies(datecode):
+    jh_worksheet = get_jh_worksheet()
+
+    print("test string")
+    print(jh_worksheet.cell(1, 1).value)
+    return []
+
 def output(send_flag, api, tweet_list):
     # Prepare for list output
     length = len(tweet_list)
@@ -98,7 +122,7 @@ def output(send_flag, api, tweet_list):
     print(f"\n{tweet_list[0]}")
 
     if send_flag == True:
-        prev_id = api.update_status(tweet_list[0].id
+        prev_tweet = api.update_status(tweet_list[0]
 
     # Output and post replies in list
     for i in range(1, length):
@@ -108,14 +132,13 @@ def output(send_flag, api, tweet_list):
         # Send tweet
         if send_flag == True:
             time.sleep(5)
-            prev_id = api.update_status(tweet_list[i], prev_id)
+            prev_tweet = api.update_status("@" + prev_tweet.user.screen_name + "\n\n" + tweet_list[i], prev_tweet.id)
 
 def main():
-
     # Command line args
     parser = argparse.ArgumentParser()
     parser.add_argument('--notweet', help='Do not post a tweet', action="store_true")
-    parser.add_argument('--nopickle', help='Do not pickle', action="store_true")
+    parser.add_argument('--nopickle', help='Do not update local spreadsheet object', action="store_true")
     args = parser.parse_args()
     
     if args.notweet:
@@ -124,7 +147,7 @@ def main():
         print("Nopickle mode on.")
     
     # Get API access
-    auth, api = getapi()
+    auth, api = get_twitter_api()
 
     # Get current UTC time
     utctime = time.gmtime()
@@ -136,6 +159,8 @@ def main():
     # Build stats tweet and add to list
     stats_tweet = build_stats_tweet(datecode)
     tweet_list.extend([stats_tweet])
+
+    replies[] = build_replies()
 
     # Send tweets
     output(not args.notweet, api, tweet_list)
