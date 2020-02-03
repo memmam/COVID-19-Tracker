@@ -4,7 +4,7 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 # Changelog
 
 ## 2.0-beta-x:
-- 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates
+- 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
 - 2.0-beta: Major code refactor in preparation for currently not-implemented v2.0 location-based updates
 
 ## 1.5x:
