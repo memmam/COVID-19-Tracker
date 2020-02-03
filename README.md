@@ -1,9 +1,10 @@
-# 2019-nCov Tracker v2.0-beta-2
+# 2019-nCov Tracker v2.0-beta-2a
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
 
 ## 2.0-beta-x:
+- 2.0-beta-2a: Commented out print() left in as part of testing
 - 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
 - 2.0-beta: Major code refactor in preparation for currently not-implemented v2.0 location-based updates
 
