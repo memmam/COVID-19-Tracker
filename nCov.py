@@ -65,23 +65,6 @@ def get_jh(headers):
 
     return jh_total, jh_dead, jh_recovered
 
-def get_gdrive_api():
-    # get API access
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
-    client = gspread.authorize(creds)
-
-    return client
-
-def get_jh_worksheet():
-
-    # get API access and fetch latest worksheet
-    client = get_gdrive_api()
-    jh_sheet = client.open_by_key('1wQVypefm946ch4XDp37uZ-wartW4V7ILdg-qYiDXUHM')
-    jh_worksheet = jh_sheet.get_worksheet(0)
-
-    return jh_worksheet
-
 def build_stats_tweet(datecode):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
@@ -108,10 +91,28 @@ def build_stats_tweet(datecode):
 
     return stats_tweet
 
+def get_gdrive_api():
+    # get API access
+    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+    client = gspread.authorize(creds)
+
+    return client
+
+def get_jh_worksheet():
+
+    # get API access and fetch latest worksheet
+    client = get_gdrive_api()
+    jh_sheet = client.open_by_key('1wQVypefm946ch4XDp37uZ-wartW4V7ILdg-qYiDXUHM')
+    jh_worksheet = jh_sheet.get_worksheet(0)
+
+    return jh_worksheet
+
+
 def build_replies(datecode):
     jh_worksheet = get_jh_worksheet()
 
-    print(jh_worksheet.cell(1, 1).value)
+    # print(jh_worksheet.cell(1, 1).value)
     return []
 
 def output(send_flag, api, tweet_list):
