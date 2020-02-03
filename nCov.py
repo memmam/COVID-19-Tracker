@@ -3,7 +3,7 @@ import argparse
 import getopt
 import time
 import requests, json
-import gspread pickle
+import gspread, pickle
 from oauth2client.service_account import ServiceAccountCredentials
 
 # Import our Twitter credentials from credentials.py
