@@ -79,7 +79,7 @@ def get_jh(headers):
     except:
         jh_recovered = 'NaN'
 
-    return jh_total, jh_dead, jh_recovered, jh_worksheet
+    return jh_total, jh_dead, jh_recovered
 
 def build_stats_tweet(datecode):
     # request header
@@ -110,7 +110,6 @@ def build_stats_tweet(datecode):
 def build_replies(datecode):
     jh_worksheet = get_jh_worksheet()
 
-    print("test string")
     print(jh_worksheet.cell(1, 1).value)
     return []
 
@@ -160,7 +159,7 @@ def main():
     stats_tweet = build_stats_tweet(datecode)
     tweet_list.extend([stats_tweet])
 
-    replies = build_replies()
+    replies = build_replies(datecode)
 
     # Send tweets
     output(not args.notweet, api, tweet_list)
