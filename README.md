@@ -29,7 +29,7 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 
 1. Sign up for Twitter API access [here](https://developer.twitter.com/) and make note of your consumer key, consumer secret, access token, and access token secret. _TWITTER WILL ONLY SHOW YOU YOUR ACCESS TOKEN AND ACCESS TOKEN SECRET **ONCE,** SO DON'T LOSE THEM._ **DO NOT SHARE THESE WITH ANYONE OR THEY CAN TAKE OVER YOUR TWITTER ACCOUNT.**
 
-3. Make a `credentials.py` file in the following format:
+2. Make a `credentials.py` file in the following format:
 
 ```
 import tweepy
@@ -43,7 +43,13 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 ```
 
-4. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.py at an interval of your choosing. 
+3. Create a Google APIs & Services project [here](https://console.developers.google.com/), and add 'Google Sheets' in the API Library
+
+4. Create a service account for the project you just created, with the permission 'Project Editor'
+
+5. Download the JSON file for the service account, and put it in the same directory as nCov.py, named 'credentials.json'
+
+6. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.py at an interval of your choosing. 
 
 NOTE: In my experience, using a Python virtual environment caused the cronjob to fail, so I had to install the libraries directly. This is generally not recommended unless all your machine is doing is running the bot. If you know a way to get cron to run nCov.py from within the virtual environment, please let me know so I can update this.
 
