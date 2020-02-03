@@ -88,4 +88,4 @@ Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scrap
 Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
 Credit to the CDC for the official instance's Twitter profile picture.
 
-This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/) [Tweepy](https://www.tweepy.org/) and [gspread](https://github.com/burnash/gspread) libraries.
+This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/), [Tweepy](https://www.tweepy.org/), and [gspread](https://github.com/burnash/gspread) libraries.
