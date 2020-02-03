@@ -47,7 +47,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 4. Create a service account for the project you just created, with the permission 'Project Editor'
 
-5. Download the JSON file for the service account, and put it in the same directory as nCov.py, named 'credentials.json'
+5. Download the JSON file for the service account, and put it in the same directory as `nCov.py`, named `credentials.json`
 
 6. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.py at an interval of your choosing. 
 
