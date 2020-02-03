@@ -1,10 +1,11 @@
-# 2019-nCov Tracker v2.0-beta
+# 2019-nCov Tracker v2.0-beta-2
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
 
-## 2.0-beta:
-- Major code refactor in preparation for currently not-implemented v2.0 location-based updates
+## 2.0-beta-x:
+- 2.0-beta-2: added nCov.sh launcher to allow for Python virtual environments
+- 2.0-beta: Major code refactor in preparation for currently not-implemented v2.0 location-based updates
 
 ## 1.5x:
 - 1.5: Tweets now stored as a list for mass output (backend work for v2.0 update)
@@ -49,9 +50,9 @@ auth.set_access_token(access_token, access_token_secret)
 
 5. Download the JSON file for the service account, and put it in the same directory as `nCov.py`, named `credentials.json`
 
-6. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.py at an interval of your choosing. 
+6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
-NOTE: In my experience, using a Python virtual environment caused the cronjob to fail, so I had to install the libraries directly. This is generally not recommended unless all your machine is doing is running the bot. If you know a way to get cron to run nCov.py from within the virtual environment, please let me know so I can update this.
+6. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.sh at an interval of your choosing. 
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
