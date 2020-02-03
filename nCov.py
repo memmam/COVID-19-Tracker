@@ -31,7 +31,7 @@ def get_gdrive_api():
 def get_jh_worksheet():
     # get API access and fetch latest worksheet
     client = get_gdrive_api()
-    jh_sheet = client.open_by_key('1ZJCEHKijIMVSJvH74C-LIUJb7BAHqj6b')
+    jh_sheet = client.open_by_key('')
     jh_worksheet = jh_sheet.get_worksheet(0)
 
     return jh_worksheet
@@ -122,7 +122,7 @@ def output(send_flag, api, tweet_list):
     print(f"\n{tweet_list[0]}")
 
     if send_flag == True:
-        prev_tweet = api.update_status(tweet_list[0]
+        prev_tweet = api.update_status(tweet_list[0])
 
     # Output and post replies in list
     for i in range(1, length):
@@ -160,7 +160,7 @@ def main():
     stats_tweet = build_stats_tweet(datecode)
     tweet_list.extend([stats_tweet])
 
-    replies[] = build_replies()
+    replies = build_replies()
 
     # Send tweets
     output(not args.notweet, api, tweet_list)
