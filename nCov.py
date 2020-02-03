@@ -31,7 +31,7 @@ def get_gdrive_api():
 def get_jh_worksheet():
     # get API access and fetch latest worksheet
     client = get_gdrive_api()
-    jh_sheet = client.open_by_key('')
+    jh_sheet = client.open_by_key('1wQVypefm946ch4XDp37uZ-wartW4V7ILdg-qYiDXUHM')
     jh_worksheet = jh_sheet.get_worksheet(0)
 
     return jh_worksheet
