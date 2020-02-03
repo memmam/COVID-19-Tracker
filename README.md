@@ -53,7 +53,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
-6. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.sh at an interval of your choosing. 
+6. Install the requests, Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.sh at an interval of your choosing. 
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
@@ -88,4 +88,4 @@ Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scrap
 Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
 Credit to the CDC for the official instance's Twitter profile picture.
 
-This bot is powered by Python 3 and the [Tweepy](https://www.tweepy.org/) and [gspread](https://github.com/burnash/gspread) libraries.
+This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/) [Tweepy](https://www.tweepy.org/) and [gspread](https://github.com/burnash/gspread) libraries.
