@@ -2,7 +2,7 @@
 import argparse
 import getopt
 import time
-import requests, json, textwrap
+import requests, json
 import gspread, oauth2client, pickle
 
 # Import our Twitter credentials from credentials.py
@@ -87,8 +87,6 @@ def build_stats_tweet(datecode):
     stats_tweet = (f"""{datecode}\n\n"""
     f"""{stats}\n"""
     f"""{hashtags}""")
-    
-    stats_tweet = textwrap.dedent(stats_tweet)
 
     return stats_tweet
 
@@ -96,14 +94,21 @@ def output(send_flag, api, tweet_list):
     # Prepare for list output
     length = len(tweet_list)
 
-    # Output and post all tweets in list
-    for i in range(length):
+    # Output master tweet
+    print(f"\n{tweet_list[0]}")
+
+    if send_flag == True:
+        prev_id = api.update_status(tweet_list[0].id
+
+    # Output and post replies in list
+    for i in range(1, length):
         # Test print / terminal output
         print(f"\n{tweet_list[i]}")
 
         # Send tweet
         if send_flag == True:
-            api.update_status(tweet_list[i])
+            time.sleep(5)
+            prev_id = api.update_status(tweet_list[i], prev_id)
 
 def main():
 
