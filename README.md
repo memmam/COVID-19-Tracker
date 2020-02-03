@@ -43,9 +43,9 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 ```
 
-4. Install the Tweepy library, and create a cronjob to run nCov.py at an interval of your choosing. 
+4. Install the Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.py at an interval of your choosing. 
 
-NOTE: In my experience, using a Python virtual environment caused the cronjob to fail, so I had to install the Tweepy library directly. This is generally not recommended unless all your machine is doing is running the bot. If you know a way to get cron to run nCov.py from within the virtual environment, please let me know so I can update this.
+NOTE: In my experience, using a Python virtual environment caused the cronjob to fail, so I had to install the libraries directly. This is generally not recommended unless all your machine is doing is running the bot. If you know a way to get cron to run nCov.py from within the virtual environment, please let me know so I can update this.
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
@@ -80,4 +80,4 @@ Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scrap
 Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
 Credit to the CDC for the official instance's Twitter profile picture.
 
-This bot is powered by Python 3 and the [Tweepy](https://www.tweepy.org/) library.
+This bot is powered by Python 3 and the [Tweepy](https://www.tweepy.org/) and [gspread](https://github.com/burnash/gspread) libraries.
