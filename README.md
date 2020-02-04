@@ -1,9 +1,10 @@
-# 2019-nCoV Tracker v2.0-beta-2a
+# 2019-nCoV Tracker v2.0-beta-3
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
 
 ## 2.0-beta-x:
+- 2.0-beta-3: Added new setup script to simplify deployment
 - 2.0-beta-2a: Commented out print() left in as part of testing
 - 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
 - 2.0-beta: Major code refactor in preparation for currently not-implemented v2.0 location-based updates
@@ -53,7 +54,9 @@ auth.set_access_token(access_token, access_token_secret)
 
 6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
-6. Install the requests, Tweepy, gspread, and oauth2client libraries, and create a cronjob to run nCov.sh at an interval of your choosing. 
+7. Run Setup-nCoV.sh to create launcher scripts (necessary for cron / allows you to run script without having to mess with venv)
+
+8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCov.sh at an interval of your choosing. 
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
