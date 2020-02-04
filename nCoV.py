@@ -83,7 +83,7 @@ def build_stats_tweet(datecode):
     
     # Define hashtags
     with open ("hashtags.txt", "r") as hash_file:
-        hashtags=hash_file.readline()
+        hashtags=hash_file.readline().replace('\n', '')
         hash_file.close()
 
     # Build statistics tweet
