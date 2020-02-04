@@ -4,6 +4,7 @@ Twitter bot for posting information on spread of 2019-nCov. The official instanc
 # Changelog
 
 ## 2.0-beta-x:
+- 2.0-beta-3a: Setup script now gives execute permissions (bug)
 - 2.0-beta-3: Added new setup script to simplify deployment
 - 2.0-beta-2a: Commented out print() left in as part of testing
 - 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
