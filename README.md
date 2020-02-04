@@ -88,7 +88,7 @@ Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scrap
 
 Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
 
-Credit to Ensheng Dong ([@Energeticodefish](https://github.com/enshengdong) on Github) from the Center for Systems Science and Engineering at Johns Hopkins University for creating the Johns Hopkins 2019-nCoV tracker, and for replying to my emails about Google Sheets access
+Credit to Ensheng Dong ([@Energeticodefish](https://github.com/enshengdong) on Github) from the Center for Systems Science and Engineering at Johns Hopkins University for creating the Johns Hopkins 2019-nCoV tracker, and for replying to my emails about Google Sheets access.
 
 Credit to the CDC for the official instance's Twitter profile picture.
 
