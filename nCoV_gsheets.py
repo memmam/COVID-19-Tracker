@@ -1,4 +1,21 @@
-import gspread, pickle
+#!/usr/bin/python3
+
+# 2019-nCoV Tracker v3.0-beta-1
+# By Math Morissette (@TheYadda on Github)
+# Last updated: 2020-02-04
+#
+# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+#
+# Uses Requests, Tweepy, and gspread libraries
+#
+# File: nCoV_gsheets.py
+# Purpose: Methods for nCoV.py that use Google Sheets API
+
+# For parsing Johns Hopkins spreadsheet
+import gspread
+
+# For saving and loading of historical Johns Hopkins data
+import pickle
 
 # For API access
 from oauth2client.service_account import ServiceAccountCredentials

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 3.0-beta-x
+- 3.0-beta-1: Improved comments, added headers, rewrote test_tweet.py to use new method structure
 - 3.0-beta: Split code across multiple files instead of one long one. Location-based tracking pushed to final v3.0 release (still not implemented at this time).
 
 ## 2.0-beta-x:

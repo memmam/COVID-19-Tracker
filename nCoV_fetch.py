@@ -1,4 +1,21 @@
-import requests, json
+#!/usr/bin/python3
+
+# 2019-nCoV Tracker v3.0-beta-1
+# By Math Morissette (@TheYadda on Github)
+# Last updated: 2020-02-04
+#
+# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+#
+# Uses Requests, Tweepy, and gspread libraries
+#
+# File: nCoV_fetch.py
+# Purpose: Methods for nCoV.py that use Requests
+
+# For Johns Hopkins, Tencent QQ News data
+import requests
+
+# To process requested data
+import json
 
 # Fetch Johns Hopkins CSSE data
 def get_jh(headers):

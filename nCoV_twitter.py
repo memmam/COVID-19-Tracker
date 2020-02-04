@@ -1,3 +1,16 @@
+#!/usr/bin/python3
+
+# 2019-nCoV Tracker v3.0-beta-1
+# By Math Morissette (@TheYadda on Github)
+# Last updated: 2020-02-04
+#
+# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+#
+# Uses Requests, Tweepy, and gspread libraries
+#
+# File: nCoV_twitter.py
+# Purpose: Methods for nCoV.py that use Twitter API
+
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
 
