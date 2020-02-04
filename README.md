@@ -1,4 +1,4 @@
-# 2019-nCov Tracker v2.0-beta-2a
+# 2019-nCoV Tracker v2.0-beta-2a
 Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
 
 # Changelog
@@ -84,8 +84,9 @@ QQ = Tencent QQ News
 
 This bot will, if functioning normally, post an update once every hour. If any problems arise, please report them to @Math#7777 on Discord.
 
-Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scraping code.
-Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
-Credit to the CDC for the official instance's Twitter profile picture.
+- Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scraping code.
+- Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
+- Credit to Ensheng Dong ([@Energeticodefish](https://github.com/enshengdong) on Github) from the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University for creating the Johns Hopkins 2019-nCoV tracker, and for replying to my emails about Google Sheets access
+- Credit to the CDC for the official instance's Twitter profile picture.
 
 This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/), [Tweepy](https://www.tweepy.org/), and [gspread](https://github.com/burnash/gspread) libraries.
