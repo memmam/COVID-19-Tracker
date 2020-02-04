@@ -79,14 +79,17 @@ def build_stats_tweet(datecode):
     f"""{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"""
     f"""{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"""
     f"""JH = Johns Hopkins\n"""
-    f"""QQ = Tencent QQ News\n""")
+    f"""QQ = QQ News\n""")
     
     # Define hashtags
-    hashtags = "#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019"
+    with open ("hashtags.txt", "r") as hash_file:
+        hashtags=hash_file.readline()
+        hash_file.close()
 
     # Build statistics tweet
     stats_tweet = (f"""{datecode}\n\n"""
     f"""{stats}\n"""
+    f"""Please retweet to spread awareness.\n\n"""
     f"""{hashtags}""")
 
     return stats_tweet

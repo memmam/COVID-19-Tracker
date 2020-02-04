@@ -1,12 +1,13 @@
 # 2019-nCoV Tracker v2.0-beta-3
-Twitter bot for posting information on spread of 2019-nCov. The official instance of this bot can be found at [@2019nCovTracker](https://twitter.com/2019nCovTracker).
+Twitter bot for posting information on spread of 2019-nCoV. The official instance of this bot can be found at [@2019nCoVTracker](https://twitter.com/2019nCoVTracker).
 
 # Changelog
 
 ## 2.0-beta-x:
+- 2.0-beta-4: Made hashtags user-editable in a `hashtags.txt`, switched all references of 'nCov' to 'nCoV'
 - 2.0-beta-3: Added new setup script to simplify deployment
 - 2.0-beta-2a: Commented out print() left in as part of testing
-- 2.0-beta-2: Added nCov.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
+- 2.0-beta-2: Added nCoV.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
 - 2.0-beta: Major code refactor in preparation for currently not-implemented v2.0 location-based updates
 
 ## 1.5x:
@@ -50,13 +51,13 @@ auth.set_access_token(access_token, access_token_secret)
 
 4. Create a service account for the project you just created, with the permission 'Project Editor'
 
-5. Download the JSON file for the service account, and put it in the same directory as `nCov.py`, named `credentials.json`
+5. Download the JSON file for the service account, and put it in the same directory as `nCoV.py`, named `credentials.json`
 
 6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
 7. Run Setup-nCoV.sh to create launcher scripts (necessary for cron / allows you to run script without having to mess with venv)
 
-8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCov.sh at an interval of your choosing. 
+8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCoV.sh at an interval of your choosing.
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
@@ -80,9 +81,11 @@ N,NNN,NNN (JH) / N,NNN,NNN (QQ) deaths
 N,NNN,NNN (JH) / N,NNN,NNN (QQ) recovered
 
 JH = Johns Hopkins
-QQ = Tencent QQ News
+QQ = QQ News
 
-#WuhanPneumonia #WuhanCoronavirus #coronavirus #nCov #2019nCov #nCov2019
+Please retweet to spread awareness.
+
+#WuhanCoronavirus #coronavirus #nCoV #2019nCoV
 ```
 
 This bot will, if functioning normally, post an update once every hour. If any problems arise, please report them to @Math#7777 on Discord.
