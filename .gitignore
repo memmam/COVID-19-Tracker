@@ -1,3 +1,4 @@
 credentials.*
 venv
 nCoV*.sh
+__pycache__
