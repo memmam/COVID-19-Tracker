@@ -55,7 +55,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
-7. Run Setup-nCoV.sh to create launcher scripts (necessary for cron / allows you to run script without having to mess with venv)
+7. Run Setup-nCoV.sh to create launcher scripts (cron can only run nCoV.py from venv using a launcher script, allows you to run script from terminal without having to activate venv)
 
 8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCov.sh at an interval of your choosing. 
 
