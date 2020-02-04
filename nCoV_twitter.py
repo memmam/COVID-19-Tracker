@@ -29,20 +29,28 @@ def get_twitter_api():
 # Send nCoV tweets
 def output(send_flag, api, tweet_list):
     # Prepare for list output
-    length = len(tweet_list)
+    length_i = len(tweet_list)
 
     # Output master tweet
     print(f"\n{tweet_list[0]}")
 
+    # Send master tweet
     if send_flag == True:
-        prev_tweet = api.update_status(tweet_list[0])
+        master_tweet = api.update_status(tweet_list[0])
+        prev_tweet = master_tweet
 
     # Output and post replies in list
-    for i in range(1, length):
-        # Test print / terminal output
-        print(f"\n{tweet_list[i]}")
+    for i in range(1, length_i):
+        length_j = len(tweet_list[i])
+        
+        for j in range(0, length_j):
+            # Test print / terminal output
+            print(f"\n{tweet_list[i][j]}")
 
-        # Send tweet
+            # Send tweets
+            if send_flag == True:
+                time.sleep(5)
+                # prev_tweet = api.update_status("@" + prev_tweet.user.screen_name + "\n\n" + tweet_list[i], prev_tweet.id)
+        
         if send_flag == True:
-            time.sleep(5)
-            prev_tweet = api.update_status("@" + prev_tweet.user.screen_name + "\n\n" + tweet_list[i], prev_tweet.id)
+            prev_tweet = master_tweet

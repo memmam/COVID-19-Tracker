@@ -24,7 +24,7 @@ from nCoV_twitter import *
 from nCoV_fetch import *
 
 # Import nCoV-gsheets methods (also imports gspread and pickle)
-from nCoV_gsheets import *
+from nCoV_sheets import *
 
 # Main method
 def main():
@@ -53,7 +53,7 @@ def main():
     stats_tweet = build_stats_tweet(datecode)
     tweet_list.extend([stats_tweet])
 
-    replies = build_replies(datecode)
+    jh_parsed = build_replies(datecode)
 
     # Send tweets
     output(not args.notweet, api, tweet_list)
