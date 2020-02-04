@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0-beta-x
+- 3.0-beta: Split code across multiple files instead of one long one. Location-based tracking pushed to final v3.0 release (still not implemented at this time).
+
 ## 2.0-beta-x:
 - 2.0-beta-4a: Fixed potential bug with hashtags.txt import
 - 2.0-beta-4: Made hashtags user-editable in a `hashtags.txt`, switched all references of 'nCov' to 'nCoV'
