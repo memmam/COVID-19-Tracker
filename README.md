@@ -1,5 +1,5 @@
 # 2019-nCoV Tracker v2.0-beta-4a
-Twitter bot for posting information on spread of 2019-nCoV. The official instance of this bot can be found at [@2019nCoVTracker](https://twitter.com/2019nCoVTracker).
+Twitter bot for posting information on spread of the 2019-20 Novel Coronavirus (2019-nCoV). The official instance of this bot can be found at [@2019nCoVTracker](https://twitter.com/2019nCoVTracker).
 
 # To create your own instance:
 
@@ -61,6 +61,8 @@ Please retweet to spread awareness.
 ```
 
 This bot will, if functioning normally, post an update once every hour. If any problems arise, please report them to @Math#7777 on Discord.
+
+# Credits
 
 Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scraping code.
 
