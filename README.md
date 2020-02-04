@@ -5,6 +5,7 @@ Twitter bot for posting information on spread of 2019-nCoV. The official instanc
 
 ## 2.0-beta-x:
 - 2.0-beta-4: Made hashtags user-editable in a `hashtags.txt`, switched all references of 'nCov' to 'nCoV'
+- 2.0-beta-3a: Setup script now gives execute permissions (bugfix)
 - 2.0-beta-3: Added new setup script to simplify deployment
 - 2.0-beta-2a: Commented out print() left in as part of testing
 - 2.0-beta-2: Added nCoV.sh launcher to allow for Python virtual environments, added spreadsheet fetching for v2.0 location-based updates, fixed behavior on web request failure
@@ -55,9 +56,9 @@ auth.set_access_token(access_token, access_token_secret)
 
 6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
 
-7. Run Setup-nCoV.sh to create launcher scripts (necessary for cron / allows you to run script without having to mess with venv)
+7. Run Setup-nCoV.sh to create launcher scripts (cron can only run nCoV.py from venv using a launcher script, allows you to run script from terminal without having to activate venv)
 
-8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCoV.sh at an interval of your choosing.
+8. Install the Requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCoV.sh at an interval of your choosing. 
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
