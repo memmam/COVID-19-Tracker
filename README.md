@@ -4,6 +4,7 @@ Twitter bot for posting information on spread of 2019-nCoV. The official instanc
 # Changelog
 
 ## 2.0-beta-x:
+- 2.0-beta-4a: Fixed potential bug with hashtags.txt import
 - 2.0-beta-4: Made hashtags user-editable in a `hashtags.txt`, switched all references of 'nCov' to 'nCoV'
 - 2.0-beta-3a: Setup script now gives execute permissions (bugfix)
 - 2.0-beta-3: Added new setup script to simplify deployment
