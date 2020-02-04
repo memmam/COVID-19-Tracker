@@ -57,7 +57,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 7. Run Setup-nCoV.sh to create launcher scripts (cron can only run nCoV.py from venv using a launcher script, allows you to run script from terminal without having to activate venv)
 
-8. Install the requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCov.sh at an interval of your choosing. 
+8. Install the Requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCov.sh at an interval of your choosing. 
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
