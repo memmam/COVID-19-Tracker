@@ -28,4 +28,4 @@ echo `pwd` >> nCoV-notweet-nopickle.sh
 echo 'source ./venv/bin/activate' >> nCoV-notweet-nopickle.sh
 echo 'python3 nCoV.py --notweet --nopickle' >> nCoV-notweet-nopickle.sh
 
-chmod u+x nCoV*.sh
+chmod a+x nCoV*.sh
