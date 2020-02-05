@@ -20,10 +20,7 @@ import time
 # Import nCoV_twitter methods (also imports credentials and Tweepy)
 from nCoV_twitter import *
 
-# Import nCoV_fetch methods (also imports Requests and json)
-from nCoV_fetch import *
-
-# Import nCoV_parse methods (also imports nCoV_sheets methods, gspread, pickle, oauth2client.service_account)
+# Import nCoV_parse methods (also imports nCoV_sheets, nCoV_fetch methods, Requests, json, gspread, oauth2client.service_account)
 from nCoV_parse import *
 
 # Main method
@@ -31,13 +28,13 @@ def main():
     # Command line args
     parser = argparse.ArgumentParser()
     parser.add_argument('--notweet', help='Do not post a tweet', action="store_true")
-    parser.add_argument('--nopickle', help='Do not update local spreadsheet object', action="store_true")
+    parser.add_argument('--noload', help='Do not update local spreadsheet object', action="store_true")
     args = parser.parse_args()
     
     if args.notweet:
         print("Notweet mode on.")
-    if args.nopickle:
-        print("Nopickle mode on.")
+    if args.noload:
+        print("Noload mode on.")
     
     # Get API access
     api = get_twitter_api()
