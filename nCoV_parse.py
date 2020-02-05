@@ -155,7 +155,7 @@ def load_historical(load_flag, jh_parsed_data):
             json_file.close()
     except:
         with open ("jh_sheet.json", "w") as json_file:
-            historical_data = json.dump(jh_parsed_data, json_file)
+            json.dump(jh_parsed_data, json_file)
             json_file.close()
         with open ("jh_sheet.json", "r") as json_file:
             historical_data = json.load(json_file)

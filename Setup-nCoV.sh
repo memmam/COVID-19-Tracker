@@ -11,6 +11,9 @@
 # File: Setup-nCoV.sh
 # Purpose: Creates launcher scripts for 2019-nCoV Tracker
 
+# create hashtags.txt
+echo '#WuhanCoronavirus #coronavirus #nCoV #2019nCoV' > hashtags.txt
+
 # create nCoV.sh
 echo '#!/bin/bash' > nCoV.sh
 echo -n 'cd ' >> nCoV.sh

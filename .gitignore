@@ -3,4 +3,4 @@ credentials.*
 venv
 nCoV*.sh
 __pycache__
-prev_nums.txt
+*.txt
