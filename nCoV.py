@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v3.0-beta-1
+# 2019-nCoV Tracker v3.0-beta-2
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-02-04
 #
@@ -47,7 +47,11 @@ def main():
     tweet_list = []
 
     # Build stats tweet and add to list
-    stats_tweet = build_stats_tweet(datecode)
+    stats_tweet = build_stats_tweet(not args.notweet,datecode)
+
+    if stats_tweet == "ABORT":
+        exit()        
+
     tweet_list.extend([stats_tweet])
 
     build_replies(not args.noload, datecode)
