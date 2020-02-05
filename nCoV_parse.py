@@ -51,36 +51,35 @@ def build_stats_tweet(datecode):
 def parse_jh(jh_worksheet_list):
     length = len(jh_worksheet_list)
     countries_list = []
-    jh_processed_data = []
+    jh_processed_data = {}
 
     # Core parser logic
 
     # Iterate over sheet
     for i in range(length):
         # If a given country is already in the processed data, append the province to it
-        if jh_worksheet_list[i].get('Country/Region') in countries_list:
-            country_index = countries_list.index(jh_worksheet_list[i].get('Country/Region'))
-            jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region')).get('province_data')[jh_worksheet_list[i].get('Province/State')] = [jh_worksheet_list[i].get('Confirmed'),  jh_worksheet_list[i].get('Deaths'),  jh_worksheet_list[i].get('Recovered'),  jh_worksheet_list[i].get('Last Update')]
-            jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region'))['total_confirmed'] = jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region')).get('total_confirmed') + jh_worksheet_list[i].get('Confirmed')
-            jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region'))['total_dead'] = jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region')).get('total_dead') + jh_worksheet_list[i].get('Deaths')
-            jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region'))['total_recovered'] = jh_processed_data[country_index].get(jh_worksheet_list[i].get('Country/Region')).get('total_recovered') + jh_worksheet_list[i].get('Recovered')
-        
-        # Else, create a new country entry in the processed data, and populate it with the current province
-        else:
+        if jh_worksheet_list[i].get('Country/Region') not in countries_list:
             countries_list.append(jh_worksheet_list[i].get('Country/Region'))
-            jh_processed_data.append({
-                jh_worksheet_list[i].get('Country/Region'): {
+            jh_processed_data[jh_worksheet_list[i].get('Country/Region')] = {
                     'province_data': {jh_worksheet_list[i].get('Province/State'): [jh_worksheet_list[i].get('Confirmed'),  jh_worksheet_list[i].get('Deaths'),  jh_worksheet_list[i].get('Recovered'),  jh_worksheet_list[i].get('Last Update')]},
                     'total_confirmed': jh_worksheet_list[i].get('Confirmed'),
                     'total_dead': jh_worksheet_list[i].get('Deaths'),
                     'total_recovered': jh_worksheet_list[i].get('Recovered')
-                }})
+                }
+        
+        # Else, create a new country entry in the processed data, and populate it with the current province
+        else:
+            country_index = countries_list.index(jh_worksheet_list[i].get('Country/Region'))
+            jh_country = jh_processed_data[jh_worksheet_list[i].get('Country/Region')]
 
-    jh_processed_data.insert(0, countries_list)
-    
-    jh_sheet_json = json.loads(json.dumps(jh_processed_data))
+            jh_country['province_data'][jh_worksheet_list[i].get('Province/State')] = [jh_worksheet_list[i].get('Confirmed'), jh_worksheet_list[i].get('Deaths'),  jh_worksheet_list[i].get('Recovered'), jh_worksheet_list[i].get('Last Update')] 
+            jh_country['total_confirmed'] = jh_country['total_confirmed'] + jh_worksheet_list[i].get('Confirmed')
+            jh_country['total_dead'] = jh_country['total_dead'] + jh_worksheet_list[i].get('Deaths')
+            jh_country['total_recovered'] = jh_country['total_recovered'] + jh_worksheet_list[i].get('Recovered')
 
-    return jh_sheet_json
+    jh_sheet_json_dump = json.dumps(jh_processed_data)
+
+    return jh_sheet_json_dump
 
 # Get and parse Johns Hopkins CSSU data
 def get_parse_jh():
@@ -92,18 +91,20 @@ def get_parse_jh():
 
     jh_worksheet_list = jh_worksheet.get_all_records()
 
-    jh_sheet_json = parse_jh(jh_worksheet_list)
+    jh_sheet_json_dump = parse_jh(jh_worksheet_list)
 
-    return jh_sheet_json
+    return jh_sheet_json_dump
 
 # Build replies from processed data
 def build_replies(datecode):
-    jh_sheet_json = get_parse_jh()
+    jh_sheet_json_dump = get_parse_jh()
 
     # Catch failed spreadsheet load
-    if jh_sheet_json == 0:
+    if jh_sheet_json_dump == 0:
         return []
 
-    print(jh_sheet_json)
+    jh_sheet_json = json.loads(jh_sheet_json_dump)
+
+    print(jh_sheet_json_dump)
 
     return []
