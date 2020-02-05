@@ -35,15 +35,21 @@ def build_stats_tweet(datecode):
     f"""QQ = QQ News\n""")
     
     # Define hashtags
-    with open ("hashtags.txt", "r") as hash_file:
-        hashtags=hash_file.readline().replace('\n', '')
-        hash_file.close()
+    try:
+        with open ("hashtags.txt", "r") as hash_file:
+            hashtags=hash_file.readline().replace('\n', '')
+            hash_file.close()
+    except:
+        hashtags=""
 
     # Build statistics tweet
     stats_tweet = (f"""{datecode}\n\n"""
     f"""{stats}\n"""
-    f"""Please retweet to spread awareness.\n\n"""
-    f"""{hashtags}""")
+    f"""Please retweet to spread awareness.""")
+
+    if hashtags != "":
+        stats_tweet = (f"""{stats_tweet}\n\n"""
+        f"""{hashtags}""")
 
     return stats_tweet
 
@@ -77,9 +83,7 @@ def parse_jh(jh_worksheet_list):
             jh_country['total_dead'] = jh_country['total_dead'] + jh_worksheet_list[i].get('Deaths')
             jh_country['total_recovered'] = jh_country['total_recovered'] + jh_worksheet_list[i].get('Recovered')
 
-    jh_sheet_json_dump = json.dumps(jh_processed_data)
-
-    return jh_sheet_json_dump
+    return jh_processed_data
 
 # Get and parse Johns Hopkins CSSU data
 def get_parse_jh():
@@ -91,20 +95,38 @@ def get_parse_jh():
 
     jh_worksheet_list = jh_worksheet.get_all_records()
 
-    jh_sheet_json_dump = parse_jh(jh_worksheet_list)
+    jh_parsed_data = parse_jh(jh_worksheet_list)
 
-    return jh_sheet_json_dump
+    return jh_parsed_data
+
+# Load historical spreadsheet data
+def load_historical(load_flag, jh_parsed_data):
+    # Define hashtags
+    try:
+        with open ("jh_sheet.json", "r") as json_file:
+            historical_data = json.load(json_file)
+            json_file.close()
+    except:
+        with open ("jh_sheet.json", "w") as json_file:
+            historical_data = json.dump(jh_parsed_data, json_file)
+            json_file.close()
+        with open ("jh_sheet.json", "r") as json_file:
+            historical_data = json.load(json_file)
+            json_file.close()
+
+    return historical_data
 
 # Build replies from processed data
-def build_replies(datecode):
-    jh_sheet_json_dump = get_parse_jh()
+def build_replies(load_flag, datecode):
+
+    jh_parsed_data = get_parse_jh()
+
+    historical_data = load_historical(load_flag, jh_parsed_data)
 
     # Catch failed spreadsheet load
-    if jh_sheet_json_dump == 0:
+    if jh_parsed_data == 0:
         return []
 
-    jh_sheet_json = json.loads(jh_sheet_json_dump)
-
-    print(jh_sheet_json_dump)
+    print(jh_parsed_data)
 
     return []

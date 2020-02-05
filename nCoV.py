@@ -50,7 +50,7 @@ def main():
     stats_tweet = build_stats_tweet(datecode)
     tweet_list.extend([stats_tweet])
 
-    jh_parsed = build_replies(datecode)
+    build_replies(not args.noload, datecode)
 
     # Send tweets
     output(not args.notweet, api, tweet_list)
