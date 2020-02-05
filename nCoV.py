@@ -17,14 +17,14 @@ import argparse
 # Import for UTC datestamp
 import time
 
-# Import nCoV-twitter methods (also imports credentials and Tweepy)
+# Import nCoV_twitter methods (also imports credentials and Tweepy)
 from nCoV_twitter import *
 
-# Import nCoV-fetch methods (also imports Requests and json)
+# Import nCoV_fetch methods (also imports Requests and json)
 from nCoV_fetch import *
 
-# Import nCoV-gsheets methods (also imports gspread and pickle)
-from nCoV_sheets import *
+# Import nCoV_parse methods (also imports nCoV_sheets methods, gspread, pickle, oauth2client.service_account)
+from nCoV_parse import *
 
 # Main method
 def main():
