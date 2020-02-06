@@ -45,7 +45,7 @@ pip install --upgrade pip
 pip install requests==2.22.0 tweepy==3.8.0 gspread==3.2.0 oauth2client==4.1.3
 
 # create cronjob
-cmd="`pwd`/nCoV.sh >> cron_reports.txt"
+cmd="`pwd`/nCoV.sh >> `pwd`/cron_reports.txt"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
