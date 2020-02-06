@@ -24,25 +24,34 @@ echo `pwd` >> nCoV.sh
 echo 'source ./venv/bin/activate' >> nCoV.sh
 echo 'python3 nCoV.py' >> nCoV.sh
 
-# create nCoV.sh
+# create nCoV-notweet.sh
 echo '#!/bin/bash' > nCoV-notweet.sh
 echo -n 'cd ' >> nCoV-notweet.sh
 echo `pwd` >> nCoV-notweet.sh
 echo 'source ./venv/bin/activate' >> nCoV-notweet.sh
 echo 'python3 nCoV.py --notweet' >> nCoV-notweet.sh
 
-# create nCoV.sh
+# create nCoV-noload.sh
 echo '#!/bin/bash' > nCoV-noload.sh
 echo -n 'cd ' >> nCoV-noload.sh
 echo `pwd` >> nCoV-noload.sh
 echo 'source ./venv/bin/activate' >> nCoV-noload.sh
 echo 'python3 nCoV.py --noload' >> nCoV-noload.sh
 
-# create nCoV.sh
+# create nCoV-notweet-noload.sh
 echo '#!/bin/bash' > nCoV-notweet-noload.sh
 echo -n 'cd ' >> nCoV-notweet-noload.sh
 echo `pwd` >> nCoV-notweet-noload.sh
 echo 'source ./venv/bin/activate' >> nCoV-notweet-noload.sh
 echo 'python3 nCoV.py --notweet --noload' >> nCoV-notweet-noload.sh
 
+# create test.sh
+echo '#!/bin/bash' > test.sh
+echo -n 'cd ' >> test.sh
+echo `pwd` >> test.sh
+echo 'source ./venv/bin/activate' >> test.sh
+echo 'python3 test_tweet.py' >> test.sh
+
+# permissions
 chmod a+x nCoV*.sh
+chmod a+x test.sh
