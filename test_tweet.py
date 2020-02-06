@@ -28,8 +28,8 @@ def main():
     api = get_twitter_api()
 
     # Build tweet string
-    test_tweet = (f"""AUTOMATED POST TEST\n"""
-    f"""{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC""")
+    test_tweet = (f"AUTOMATED POST TEST\n"
+    f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC")
 
     # Test print / terminal output
     print(test_tweet)
