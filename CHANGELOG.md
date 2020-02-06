@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2-beta-x
+- 3.2-beta: Rewrote the setup procedure; aside from creating your `credentials.py` and `credentials.json` files, you should now only need to run the setup script for the bot to work.
+
 ## 3.0-beta-x
 - 3.0-beta-3: Replaced `hashtags.txt` with `footer.txt`, which defines both the 'Please retweet' message as well as the hashtags. This file is now created by the installer script. Fixed a MAJOR bug in 3.0-beta-2 where the bot would post `ABOT` instead of simply not posting. Fixed a behavior where the bot would only not produce a tweet if tweeting was disabled.
 - 3.0-beta-2: Added parser for Johns Hopkins spreadsheet, switched from pickle to JSON, bot will now only post if data has changed (aborts after pulling data unless using --notweet)
