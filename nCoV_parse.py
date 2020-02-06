@@ -28,13 +28,13 @@ def build_stats_tweet(send_flag, datecode):
 
     if send_flag == True:
         # Collect tweet data as string for abort script in next line
-        tweet_data = (f"""{jh_total}\n"""
-        f"""{jh_dead}\n"""
-        f"""{jh_recovered}\n"""
-        f"""{qq_total}\n"""
-        f"""{qq_suspect}\n"""
-        f"""{qq_dead}\n"""
-        f"""{jh_recovered}""")
+        tweet_data = (f"{jh_total}\n"
+        f"{jh_dead}\n"
+        f"{jh_recovered}\n"
+        f"{qq_total}\n"
+        f"{qq_suspect}\n"
+        f"{qq_dead}\n"
+        f"{jh_recovered}")
 
         abort_flag = abort_nCoV(tweet_data)
 
@@ -42,12 +42,12 @@ def build_stats_tweet(send_flag, datecode):
             return "ABORT"
 
     # Construct statistics
-    stats = (f"""{jh_total:,} (JH) / {qq_total:,} (QQ) cases\n"""
-    f"""{qq_suspect:,} (QQ) suspected\n"""
-    f"""{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"""
-    f"""{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"""
-    f"""JH = Johns Hopkins\n"""
-    f"""QQ = QQ News""")
+    stats = (f"{jh_total:,} (JH) / {qq_total:,} (QQ) cases\n"
+    f"{qq_suspect:,} (QQ) suspected\n"
+    f"{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"
+    f"{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"
+    f"JH = Johns Hopkins\n"
+    f"QQ = QQ News")
     
     # Define footer
     try:
@@ -58,12 +58,12 @@ def build_stats_tweet(send_flag, datecode):
         footer=""
 
     # Build statistics tweet
-    stats_tweet = (f"""{datecode}\n\n"""
-    f"""{stats}""")
+    stats_tweet = (f"{datecode}\n\n"
+    f"{stats}")
 
     if footer != "":
-        stats_tweet = (f"""{stats_tweet}\n\n"""
-        f"""{footer}""")
+        stats_tweet = (f"{stats_tweet}\n\n"
+        f"{footer}")
 
     return stats_tweet
 
