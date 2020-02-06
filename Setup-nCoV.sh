@@ -22,9 +22,9 @@ make_launcher()
 }
 
 # create hashtags.txt
-echo "Please retweet to spread awareness." > hashtags.txt
-echo "" >> hashtags.txt
-echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> hashtags.txt
+echo "Please retweet to spread awareness." > footer.txt
+echo "" >> footer.txt
+echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
 
 # create nCoV.sh
 make_launcher "nCoV.sh" "nCoV.py"
@@ -40,6 +40,17 @@ make_launcher "nCoV-notweet-noload.sh" "nCoV.py --notweet --noload"
 
 # create test.sh
 make_launcher "test.sh" "test_tweet.py"
+
+# create virtual environment and install packages
+python3 -m venv venv
+source ./venv/bin/activate
+pip install --upgrade pip
+pip install requests==2.22.0 tweepy==3.8.0 gspread==3.2.0 oauth2client==4.1.3
+
+# create cronjob
+cmd="`pwd`/nCoV.py"
+job="0 */2 * * * $cmd"
+( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
 # permissions
 chmod a+x nCoV*.sh
