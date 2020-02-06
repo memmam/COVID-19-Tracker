@@ -1,7 +1,7 @@
 # Changelog
 
 ## 3.2-beta-x
-- w.2-beta-1: CRITICAL bugfix in set-up script (cronjob called wrong file)
+- 3.2-beta-1: CRITICAL bugfix in set-up script (cronjob called wrong file)
 - 3.2-beta: Rewrote the setup procedure; aside from setting up API access and creating your `credentials.py` and `credentials.json` files, you should now only need to run the setup script for the bot to work. I also fixed Setup-nCoV.py creating `hashtags.txt` instead of `footers.txt`.
 
 ## 3.0-beta-x
