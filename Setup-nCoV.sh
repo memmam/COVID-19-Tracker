@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 2019-nCoV Tracker v3.0-beta-2
+# 2019-nCoV Tracker v3.0-beta-3
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-04
+# Last updated: 2020-02-05
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -12,7 +12,10 @@
 # Purpose: Creates launcher scripts for 2019-nCoV Tracker
 
 # create hashtags.txt
-echo '#WuhanCoronavirus #coronavirus #nCoV #2019nCoV' > hashtags.txt
+
+echo 'Please retweet to spread awareness.' > hashtags.txt
+echo '' >> hashtags.txt
+echo -n '#WuhanCoronavirus #coronavirus #nCoV #2019nCoV' >> hashtags.txt
 
 # create nCoV.sh
 echo '#!/bin/bash' > nCoV.sh

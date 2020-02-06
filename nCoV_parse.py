@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v3.0-beta-2
+# 2019-nCoV Tracker v3.0-beta-3
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-04
+# Last updated: 2020-02-05
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -26,7 +26,7 @@ def build_stats_tweet(send_flag, datecode):
     qq_total, qq_suspect, qq_recovered, qq_dead = get_qq(headers)
     jh_total, jh_dead, jh_recovered = get_jh(headers)
 
-    if send_flag == False:
+    if send_flag == True:
         # Collect tweet data as string for abort script in next line
         tweet_data = (f"""{jh_total}\n"""
         f"""{jh_dead}\n"""
@@ -39,7 +39,7 @@ def build_stats_tweet(send_flag, datecode):
         abort_flag = abort_nCoV(tweet_data)
 
         if abort_flag == True:
-            return "ABOT"
+            return "ABORT"
 
     # Construct statistics
     stats = (f"""{jh_total:,} (JH) / {qq_total:,} (QQ) cases\n"""
@@ -47,24 +47,23 @@ def build_stats_tweet(send_flag, datecode):
     f"""{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"""
     f"""{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"""
     f"""JH = Johns Hopkins\n"""
-    f"""QQ = QQ News\n""")
+    f"""QQ = QQ News""")
     
-    # Define hashtags
+    # Define footer
     try:
-        with open ("hashtags.txt", "r") as hash_file:
-            hashtags=hash_file.readline().replace('\n', '')
+        with open ("footer.txt", "r") as hash_file:
+            footer=hash_file.read()
             hash_file.close()
     except:
-        hashtags=""
+        footer=""
 
     # Build statistics tweet
     stats_tweet = (f"""{datecode}\n\n"""
-    f"""{stats}\n"""
-    f"""Please retweet to spread awareness.""")
+    f"""{stats}""")
 
-    if hashtags != "":
+    if footer != "":
         stats_tweet = (f"""{stats_tweet}\n\n"""
-        f"""{hashtags}""")
+        f"""{footer}""")
 
     return stats_tweet
 

@@ -1,6 +1,7 @@
 # Changelog
 
 ## 3.0-beta-x
+- 3.0-beta-3: Replaced `hashtags.txt` with `footer.txt`, which defines both the 'Please retweet' message as well as the hashtags. This file is now created by the installer script. Fixed a MAJOR bug in 3.0-beta-2 where the bot would post 'ABOT' instead of simply not posting. Fixed a behavior where the bot would only not produce a tweet if tweeting was disabled.
 - 3.0-beta-2: Added parser for Johns Hopkins spreadsheet, switched from pickle to JSON, bot will now only post if data has changed (aborts after pulling data unless using --notweet)
 - 3.0-beta-1: Improved comments, added headers, rewrote test_tweet.py to use new method structure
 - 3.0-beta: Split code across multiple files instead of one long one. Location-based tracking pushed to final v3.0 release (still not implemented at this time).

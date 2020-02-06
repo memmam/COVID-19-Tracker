@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v3.0-beta-2
+# 2019-nCoV Tracker v3.0-beta-3
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-04
+# Last updated: 2020-02-05
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
