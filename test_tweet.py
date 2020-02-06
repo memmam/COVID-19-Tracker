@@ -28,8 +28,10 @@ def main():
     api = get_twitter_api()
 
     # Build tweet string
-    test_tweet = (f"AUTOMATED POST TEST\n"
-    f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC")
+    test_tweet = (f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02}:{utctime.tm_sec:02} UTC\n\n"
+    "Test tweet!\n\n"
+    "If you ran this script from a cron job, assuming this was posted at the time you expected, your bot is working correctly!\n\n"
+    "Just change the cron job to run the nCoV shell script, and you're done!")
 
     # Test print / terminal output
     print(test_tweet)
