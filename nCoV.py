@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v3.2-beta
+# 2019-nCoV Tracker v3.2-beta-1
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-02-06
 #
