@@ -38,9 +38,6 @@ make_launcher "nCoV-noload.sh" "nCoV.py --noload"
 # create nCoV-notweet-noload.sh
 make_launcher "nCoV-notweet-noload.sh" "nCoV.py --notweet --noload"
 
-# create test.sh
-make_launcher "test.sh" "test_tweet.py"
-
 # create virtual environment and install packages
 python3 -m venv venv
 source ./venv/bin/activate
@@ -48,10 +45,12 @@ pip install --upgrade pip
 pip install requests==2.22.0 tweepy==3.8.0 gspread==3.2.0 oauth2client==4.1.3
 
 # create cronjob
-cmd="`pwd`/nCoV.py"
+cmd="`pwd`/nCoV.py >> cron_reports.txt"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
 # permissions
 chmod a+x nCoV*.sh
-chmod a+x test.sh
+
+echo $'\nTesting... If the following succeeds, the bot is set up and working! If not, you likely credentials.py or credentials.json.\n'
+./nCoV-notweet.sh
