@@ -46,8 +46,8 @@ def build_stats_tweet(send_flag, datecode):
     f"{qq_suspect:,} (QQ) suspected\n"
     f"{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"
     f"{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"
-    f"JH = Johns Hopkins\n"
-    f"QQ = QQ News")
+    "JH = Johns Hopkins\n"
+    "QQ = QQ News")
     
     # Define footer
     try:
