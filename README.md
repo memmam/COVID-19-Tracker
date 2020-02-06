@@ -29,11 +29,9 @@ auth.set_access_token(access_token, access_token_secret)
 
 5. Download the JSON file for the service account, and put it in the same directory as `nCoV.py`, named `credentials.json`
 
-6. in the root directory of the bot, run the command `python3 -m venv venv` to create a virtual environment
+6. Run `Setup-nCoV.sh`. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
 
-7. Run Setup-nCoV.sh to create launcher scripts (cron can only run nCoV.py from venv using a launcher script, allows you to run script from terminal without having to activate venv)
-
-8. Install the Requests, Tweepy, gspread, and oauth2client libraries and create a cronjob to run nCoV.sh at an interval of your choosing. 
+You're done! The bot should now be working.
 
 # About
 Numbers marked 'JH' are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
