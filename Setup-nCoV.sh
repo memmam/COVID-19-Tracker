@@ -11,46 +11,35 @@
 # File: Setup-nCoV.sh
 # Purpose: Creates launcher scripts for 2019-nCoV Tracker
 
-# create hashtags.txt
+# launcher script function
+make_launcher()
+{
+    echo "#!/bin/bash" > $1
+    echo -n "cd " >> $1
+    echo `pwd` >> $1
+    echo "source ./venv/bin/activate" >> $1
+    echo "python3 $2" >> $1
+}
 
-echo 'Please retweet to spread awareness.' > hashtags.txt
-echo '' >> hashtags.txt
-echo -n '#WuhanCoronavirus #coronavirus #nCoV #2019nCoV' >> hashtags.txt
+# create hashtags.txt
+echo "Please retweet to spread awareness." > hashtags.txt
+echo "" >> hashtags.txt
+echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> hashtags.txt
 
 # create nCoV.sh
-echo '#!/bin/bash' > nCoV.sh
-echo -n 'cd ' >> nCoV.sh
-echo `pwd` >> nCoV.sh
-echo 'source ./venv/bin/activate' >> nCoV.sh
-echo 'python3 nCoV.py' >> nCoV.sh
+make_launcher "nCoV.sh" "nCoV.py"
 
 # create nCoV-notweet.sh
-echo '#!/bin/bash' > nCoV-notweet.sh
-echo -n 'cd ' >> nCoV-notweet.sh
-echo `pwd` >> nCoV-notweet.sh
-echo 'source ./venv/bin/activate' >> nCoV-notweet.sh
-echo 'python3 nCoV.py --notweet' >> nCoV-notweet.sh
+make_launcher "nCoV-notweet.sh" "nCoV.py --notweet"
 
 # create nCoV-noload.sh
-echo '#!/bin/bash' > nCoV-noload.sh
-echo -n 'cd ' >> nCoV-noload.sh
-echo `pwd` >> nCoV-noload.sh
-echo 'source ./venv/bin/activate' >> nCoV-noload.sh
-echo 'python3 nCoV.py --noload' >> nCoV-noload.sh
+make_launcher "nCoV-noload.sh" "nCoV.py --noload"
 
 # create nCoV-notweet-noload.sh
-echo '#!/bin/bash' > nCoV-notweet-noload.sh
-echo -n 'cd ' >> nCoV-notweet-noload.sh
-echo `pwd` >> nCoV-notweet-noload.sh
-echo 'source ./venv/bin/activate' >> nCoV-notweet-noload.sh
-echo 'python3 nCoV.py --notweet --noload' >> nCoV-notweet-noload.sh
+make_launcher "nCoV-notweet-noload.sh" "nCoV.py --notweet --noload"
 
 # create test.sh
-echo '#!/bin/bash' > test.sh
-echo -n 'cd ' >> test.sh
-echo `pwd` >> test.sh
-echo 'source ./venv/bin/activate' >> test.sh
-echo 'python3 test_tweet.py' >> test.sh
+make_launcher "test.sh" "test_tweet.py"
 
 # permissions
 chmod a+x nCoV*.sh
