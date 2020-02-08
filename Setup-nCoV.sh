@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 2019-nCoV Tracker v3.2-beta-1
+# 2019-nCoV Tracker v4.0-beta
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-06
+# Last updated: 2020-02-08
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -31,6 +31,8 @@ then
     echo "Please retweet to spread awareness." > footer.txt
     echo "" >> footer.txt
     echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
+
+    cat footer.txt > footer_verbose.txt
 else
     echo "Please retweet to spread awareness." > footer_verbose.txt
     echo "" >> footer_verbose.txt
