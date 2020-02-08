@@ -52,14 +52,8 @@ def get_qq(headers):
         qq_res = requests.get('https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',headers=headers, timeout=10)
         qq_json = json.loads(qq_res.content.decode())
         qq_json_data = json.loads(qq_json['data'])
-        qq_total = qq_json_data['chinaTotal']['confirm']
         qq_suspect = qq_json_data['chinaTotal']['suspect']
-        qq_recovered = qq_json_data['chinaTotal']['heal']
-        qq_dead = qq_json_data['chinaTotal']['dead']
     except:
-        qq_total = 0
         qq_suspect = 0
-        qq_recovered = 0
-        qq_dead = 0
 
-    return qq_total, qq_suspect, qq_recovered, qq_dead
+    return qq_suspect

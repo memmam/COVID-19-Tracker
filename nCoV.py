@@ -14,10 +14,7 @@
 # Import for command line arguments
 import argparse
 
-# Import for UTC datestamp
-import time
-
-# Import nCoV_twitter methods (also imports credentials and Tweepy)
+# Import nCoV_twitter methods (also imports time, credentials, and Tweepy)
 from nCoV_twitter import *
 
 # Import nCoV_parse methods (also imports nCoV_sheets, nCoV_fetch methods, Requests, json, gspread, oauth2client.service_account)
@@ -28,36 +25,52 @@ def main():
     # Command line args
     parser = argparse.ArgumentParser()
     parser.add_argument('--notweet', help='Do not post a tweet', action="store_true")
-    parser.add_argument('--noload', help='Do not update local spreadsheet object', action="store_true")
+    parser.add_argument('--verbose', help='Turn on verbose output', action="store_true")
     args = parser.parse_args()
     
     if args.notweet:
         print("Notweet mode on.")
-    if args.noload:
-        print("Noload mode on.")
+    if args.verbose:
+        print("Verbose mode on.")
     
     # Get API access
-    api = get_twitter_api()
+    api = get_twitter_api(consumer_key, consumer_secret, access_token, access_token_secret)
 
     # Get current UTC time
     utctime = time.gmtime()
     datecode = f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02} UTC"
- 
-    # Create tweet list
-    tweet_list = []
 
     # Build stats tweet and add to list
-    stats_tweet = build_stats_tweet(not args.notweet,datecode)
+    stats_tweet = build_stats_tweet(not args.notweet, datecode, utctime.tm_hour)
 
     if stats_tweet == "ABORT":
-        exit()        
+        exit()
 
-    tweet_list.extend([stats_tweet])
+    # Send main tweet
+    output(not args.notweet, api, [stats_tweet])
 
-    build_replies(not args.noload, datecode)
+    if args.verbose:
+        # Get API keys for second Twitter account if one exists, else default to the main Twitter account
+        try:
+            api_verbose = get_twitter_api(consumer_key_verbose, consumer_secret_verbose, access_token_verbose, access_token_secret_verbose)
+        except:
+            print()
+            api_verbose = api
 
-    # Send tweets
-    output(not args.notweet, api, tweet_list)
+        tweet_arrays = build_verbose(not args.notweet, datecode, utctime.tm_hour)
+
+        arr_length = len(tweet_arrays)
+
+        tweet_sum = 0
+
+        for i in range(arr_length):
+            tweet_sum += len(tweet_arrays[i])
+
+        for i in range(arr_length):
+            if tweet_sum < 100:
+                output(not args.notweet, api_verbose, tweet_arrays[i])
+            else:
+                output(not args.notweet, api_verbose, [tweet_arrays[i][0]])
 
 # Start main method
 if __name__ == "__main__":

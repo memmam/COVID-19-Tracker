@@ -13,12 +13,13 @@
 
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
+import time
 
 # Get Twitter API access
-def get_twitter_api():
+def get_twitter_api(key, secret, token, token_secret):
     # Authenticate to Twitter
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(key, secret)
+    auth.set_access_token(token, token_secret)
 
     # Create API object
     api = tweepy.API(auth, wait_on_rate_limit=True,
@@ -36,21 +37,15 @@ def output(send_flag, api, tweet_list):
 
     # Send master tweet
     if send_flag == True:
-        master_tweet = api.update_status(tweet_list[0])
-        prev_tweet = master_tweet
+        master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
 
     # Output and post replies in list
     for i in range(1, length_i):
-        length_j = len(tweet_list[i])
-        
-        for j in range(0, length_j):
-            # Test print / terminal output
-            print(f"\n{tweet_list[i][j]}")
+        time.sleep(36)
 
-            # Send tweets
-            if send_flag == True:
-                time.sleep(5)
-                # prev_tweet = api.update_status("@" + prev_tweet.user.screen_name + "\n\n" + tweet_list[i], prev_tweet.id)
-        
+        # Test print / terminal output
+        print(f"\n{tweet_list[i]}")
+
+        # Send tweets
         if send_flag == True:
-            prev_tweet = master_tweet
+            master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)

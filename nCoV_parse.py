@@ -2,7 +2,7 @@
 
 # 2019-nCoV Tracker v3.2-beta-1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-06
+# Updated 2020-02-06
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -18,36 +18,51 @@ from nCoV_sheets import *
 from nCoV_fetch import *
 
 # Build stats tweet from requested data
-def build_stats_tweet(send_flag, datecode):
+def build_stats_tweet(send_flag, datecode, hour):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # scrapers
-    qq_total, qq_suspect, qq_recovered, qq_dead = get_qq(headers)
+    qq_suspect = get_qq(headers)
     jh_total, jh_dead, jh_recovered = get_jh(headers)
 
-    if send_flag == True:
-        # Collect tweet data as string for abort script in next line
-        tweet_data = (f"{jh_total}\n"
-        f"{jh_dead}\n"
-        f"{jh_recovered}\n"
-        f"{qq_total}\n"
-        f"{qq_suspect}\n"
-        f"{qq_dead}\n"
-        f"{jh_recovered}")
+    # Collect tweet data as string for abort script in next line
+    tweet_data = (f"{jh_total}\n"
+    f"{qq_suspect}\n"
+    f"{jh_dead}\n"
+    f"{jh_recovered}\n")
 
-        abort_flag = abort_nCoV(tweet_data)
+    abort_flag, prev_arr, curr_arr = abort_nCoV(send_flag, tweet_data)
 
-        if abort_flag == True:
-            return "ABORT"
+    if abort_flag == True:
+        return "ABORT"
+
+    diff_arr = []
+
+    for i in range(4):
+        diff_arr.append(curr_arr[i] - prev_arr[i])
 
     # Construct statistics
-    stats = (f"{jh_total:,} (JH) / {qq_total:,} (QQ) cases\n"
-    f"{qq_suspect:,} (QQ) suspected\n"
-    f"{jh_dead:,} (JH) / {qq_dead:,} (QQ) deaths\n"
-    f"{jh_recovered:,} (JH) / {qq_recovered:,} (QQ) recoveries\n\n"
-    "JH = Johns Hopkins\n"
-    "QQ = QQ News")
+    stats = f"☣️ {jh_total:,} cases"
+    if diff_arr[0] != 0:
+        stats = f"{stats} ({diff_arr[0]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}❓ {qq_suspect:,} suspect"
+    if diff_arr[1] != 0:
+        stats = f"{stats} ({diff_arr[1]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}💀 {jh_dead:,} dead"
+    if diff_arr[2] != 0:
+        stats = f"{stats} ({diff_arr[2]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}✅ {jh_recovered:,} recovered"
+    if diff_arr[3] != 0:
+        stats = f"{stats} ({diff_arr[3]:+,})"
+    else:
+        stats = f"{stats}\n"
     
     # Define footer
     try:
@@ -57,8 +72,11 @@ def build_stats_tweet(send_flag, datecode):
     except:
         footer=""
 
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+
     # Build statistics tweet
-    stats_tweet = (f"{datecode}\n\n"
+    stats_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
+    f"{clocks[hour]} {datecode}\n\n"
     f"{stats}")
 
     if footer != "":
@@ -67,7 +85,7 @@ def build_stats_tweet(send_flag, datecode):
 
     return stats_tweet
 
-def abort_nCoV(tweet_data):
+def abort_nCoV(send_flag, tweet_data):
     # If no new data, abort
     try:
         with open ("prev_nums.txt", "r") as tweet_file:
@@ -79,25 +97,27 @@ def abort_nCoV(tweet_data):
         for i in range(length):
             last_tweet_data[i] = int(last_tweet_data[i].replace('\n', ''))
 
-        tweet_data_arr = tweet_data.split('\n')
+        tweet_data_arr = tweet_data.split('\n')[0:4]
         length = len(tweet_data_arr)
 
         for i in range(length):
             tweet_data_arr[i] = int(tweet_data_arr[i])
+            tweet_data_arr[i] = tweet_data_arr[i]
 
-        with open ("prev_nums.txt", "w") as tweet_file:
-            tweet_file.write(tweet_data)
-            tweet_file.close()
+        if send_flag == True:
+            with open ("prev_nums.txt", "w") as tweet_file:
+                tweet_file.write(tweet_data)
+                tweet_file.close()
 
-        if last_tweet_data == tweet_data_arr:
-            print("No new data")
-            return True
+            if last_tweet_data == tweet_data_arr:
+                print("No new data")
+                return True, [], []
     except:
         with open ("prev_nums.txt", "w") as tweet_file:
             tweet_file.write(tweet_data)
             tweet_file.close()
 
-    return False
+    return False, last_tweet_data, tweet_data_arr
 
 # Parser for JH spreadsheet
 def parse_jh(jh_worksheet_list):
@@ -109,7 +129,7 @@ def parse_jh(jh_worksheet_list):
 
     # Iterate over sheet
     for i in range(length):
-        # If a given country is already in the processed data, append the province to it
+        # If a given country is not in the processed data, create a new country entry in the processed data, and populate it with the current province
         if jh_worksheet_list[i].get('Country/Region') not in countries_list:
             countries_list.append(jh_worksheet_list[i].get('Country/Region'))
             jh_processed_data[jh_worksheet_list[i].get('Country/Region')] = {
@@ -119,7 +139,7 @@ def parse_jh(jh_worksheet_list):
                     'total_recovered': jh_worksheet_list[i].get('Recovered')
                 }
         
-        # Else, create a new country entry in the processed data, and populate it with the current province
+        # Else, append the province to it
         else:
             country_index = countries_list.index(jh_worksheet_list[i].get('Country/Region'))
             jh_country = jh_processed_data[jh_worksheet_list[i].get('Country/Region')]
@@ -146,12 +166,16 @@ def get_parse_jh():
     return jh_parsed_data
 
 # Load historical spreadsheet data
-def load_historical(load_flag, jh_parsed_data):
+def load_historical(send_flag, jh_parsed_data):
     # Load spreadsheet JSON
     try:
         with open ("jh_sheet.json", "r") as json_file:
             historical_data = json.load(json_file)
             json_file.close()
+        if send_flag == True:
+            with open ("jh_sheet.json", "w") as json_file:
+                json.dump(jh_parsed_data, json_file)
+                json_file.close()
     except:
         with open ("jh_sheet.json", "w") as json_file:
             json.dump(jh_parsed_data, json_file)
@@ -163,16 +187,180 @@ def load_historical(load_flag, jh_parsed_data):
     return historical_data
 
 # Build replies from processed data
-def build_replies(load_flag, datecode):
+def build_verbose(send_flag, datecode, hour):
+    # List to store tweet lists
+    verbose_tweets = []
 
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+
+    # Get spreadsheet data
     jh_parsed_data = get_parse_jh()
 
-    historical_data = load_historical(load_flag, jh_parsed_data)
+    # load historical data
+    historical_data = load_historical(send_flag, jh_parsed_data)
 
     # Catch failed spreadsheet load
     if jh_parsed_data == 0:
         return []
 
-    # print(jh_parsed_data)
+    # Define footer
+    try:
+        with open ("footer_verbose.txt", "r") as hash_file:
+            footer=hash_file.read()
+            hash_file.close()
+    except:
+        footer=""
 
-    return []
+    # Lists of keys in spreadsheet data and historical spreadsheet data
+    historical_keys = list(historical_data.keys())
+    current_keys = jh_parsed_data.keys()
+
+    # Keys that are new to the dataset
+    new_keys = list(set(current_keys) - set(historical_keys))
+
+    thread = []
+
+    # Iterate across all new countries
+    new_keys_length = len(new_keys)
+    for i in range(new_keys_length):
+        master_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
+        f" {datecode}\n\n"
+        f"🌐 2019-nCoV spotted for the first time in {new_keys[i]}\n\n"
+        f"☣️ {jh_parsed_data[new_keys[i]]['total_confirmed']:,} cases\n"
+        f"💀 {jh_parsed_data[new_keys[i]]['total_dead']:,} dead\n"
+        f"✅ {jh_parsed_data[new_keys[i]]['total_recovered']:,} recovered")
+
+        if footer != "":
+            master_tweet = (f"{master_tweet}\n\n"
+            f"{footer}")
+
+        thread.append(master_tweet)
+
+        province_keys = list(jh_parsed_data[new_keys[i]]['province_data'].keys())
+
+        province_keys_length = len(province_keys)
+
+        # Iterate across all new states/provinces in new countries
+        for j in range(province_keys_length):
+            if province_keys[j] != "" and (province_keys[j] != new_keys[i] and province_keys_length != 0):
+                child_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
+                f"{clocks[hour]} {datecode}\n\n"
+                f"🌐 2019-nCoV spotted for the first time in {province_keys[j]}\n\n"
+                f"☣️ {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][0]:,} cases\n"
+                f"💀 {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][1]:,} dead\n"
+                f"✅ {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][2]:,} recovered\n\n"
+                f"🗓️ Updated {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][3]}")
+
+                if footer != "":
+                    child_tweet = (f"{child_tweet}\n\n"
+                    f"{footer}")
+
+                thread.append(child_tweet)
+
+        verbose_tweets.append(thread)
+        thread = []
+
+    # Iterate across all updated countries
+    historical_keys_length = len(historical_keys)
+    for i in range(historical_keys_length):
+        if (jh_parsed_data[historical_keys[i]]['total_confirmed'] == historical_data[historical_keys[i]]['total_confirmed'] and
+            jh_parsed_data[historical_keys[i]]['total_dead'] == historical_data[historical_keys[i]]['total_dead'] and
+            jh_parsed_data[historical_keys[i]]['total_recovered'] == historical_data[historical_keys[i]]['total_recovered']):
+            continue
+        master_tweet = (f"⚠️ Coronavirus Update ⚠️\n\n"
+        f"{clocks[hour]} {datecode}\n\n"
+        f"🌐 Update for {historical_keys[i]}\n\n")
+
+        if jh_parsed_data[historical_keys[i]]['total_confirmed'] != historical_data[historical_keys[i]]['total_confirmed']:
+            master_tweet = (f"{master_tweet}"
+            f"☣️ {jh_parsed_data[historical_keys[i]]['total_confirmed']:,} cases ({jh_parsed_data[historical_keys[i]]['total_confirmed'] - historical_data[historical_keys[i]]['total_confirmed']:+,})\n")
+        else:
+            master_tweet = (f"{master_tweet}"
+            f"☣️ {jh_parsed_data[historical_keys[i]]['total_confirmed']:,}cases \n")
+
+        if jh_parsed_data[historical_keys[i]]['total_dead'] != historical_data[historical_keys[i]]['total_dead']:
+            master_tweet = (f"{master_tweet}"
+            f"💀 {jh_parsed_data[historical_keys[i]]['total_dead']:,} dead ({jh_parsed_data[historical_keys[i]]['total_dead'] - historical_data[historical_keys[i]]['total_dead']:+,})\n")
+        else:
+            master_tweet = (f"{master_tweet}"
+            f"💀 {jh_parsed_data[historical_keys[i]]['total_dead']:,} dead\n")
+
+        if jh_parsed_data[historical_keys[i]]['total_recovered'] != historical_data[historical_keys[i]]['total_recovered']:
+            master_tweet = (f"{master_tweet}"
+            f"✅ {jh_parsed_data[historical_keys[i]]['total_recovered']:,} recovered ({jh_parsed_data[historical_keys[i]]['total_recovered'] - historical_data[historical_keys[i]]['total_recovered']:+,})")
+        else:
+            master_tweet = (f"{master_tweet}"
+            f"✅ {jh_parsed_data[historical_keys[i]]['total_recovered']:,}recovered")
+
+        if footer != "":
+            master_tweet = (f"{master_tweet}\n\n"
+            f"{footer}")
+
+        thread.append(master_tweet)
+
+        province_keys = list(jh_parsed_data[historical_keys[i]]['province_data'].keys())
+        historical_province_keys = list(historical_data[historical_keys[i]]['province_data'].keys())
+        new_province_keys = list(set(province_keys) - set(historical_province_keys))
+
+        new_province_keys_length = len(new_province_keys)
+
+        # Iterate across all new states/provinces in updated countries
+        for j in range(new_province_keys_length):
+            if new_province_keys[j] != "" and (new_province_keys[j] != historical_keys[i] and new_province_keys_length != 0):
+                child_tweet = (f"{datecode}\n\n"
+                f"🌐 2019-nCoV spotted for the first time in {new_province_keys[j]}\n\n"
+                f"☣️ {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][0]:,} cases\n"
+                f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][1]:,} dead\n"
+                f"✅ {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][2]:,} recovered\n\n"
+                f"🗓️ Updated {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][3]}")
+
+                if footer != "":
+                    child_tweet = (f"{child_tweet}\n\n"
+                    f"{footer}")
+
+                thread.append(child_tweet)
+
+        historical_province_keys_length = len(historical_province_keys)
+
+        # Iterate across all updated states/provinces in updated countries
+        for j in range(historical_province_keys_length):
+            if (historical_province_keys[j] == "" or (historical_province_keys[j] == historical_keys[i] and historical_province_keys_length == 0)) or jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0:3] == historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0:3]:
+                continue
+
+            child_tweet = (f"{datecode}\n\n"
+            f"🌐 Update for {historical_province_keys[j]}.\n\n")
+
+            if jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0] != historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0]:
+                child_tweet = (f"{child_tweet}"
+                f"☣️ {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0]:,} cases ({jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0] - historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0]:+,})\n")
+            else:
+                child_tweet = (f"{child_tweet}"
+                f"☣️ {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][0]:,} cases\n")
+
+            if jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1] != historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:
+                child_tweet = (f"{child_tweet}"
+                f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:,} dead ({jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1] - historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:+,})\n")
+            else:
+                child_tweet = (f"{child_tweet}"
+                f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:,}dead\n")
+
+            if jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2] != historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2]:
+                child_tweet = (f"{child_tweet}"
+                f"✅ {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2]:,} recovered ({jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2] - historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2]:+,})")
+            else:
+                child_tweet = (f"{child_tweet}"
+                f"✅ {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2]:,} recovered")
+
+            child_tweet = (f"{child_tweet}\n"
+            f"🗓️ Updated {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][3]}")
+
+            if footer != "":
+                child_tweet = (f"{child_tweet}\n\n"
+                f"{footer}")
+
+            thread.append(child_tweet)
+
+        verbose_tweets.append(thread)
+        thread = []
+
+    return verbose_tweets

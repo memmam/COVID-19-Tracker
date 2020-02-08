@@ -21,10 +21,27 @@ make_launcher()
     echo "python3 $2" >> $1
 }
 
-# create hashtags.txt
-echo "Please retweet to spread awareness." > footer.txt
-echo "" >> footer.txt
-echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
+# get user input
+echo "Please enter the name of your second bot. If none, just press enter."
+read botname
+
+# create footer.txt
+if [ botname = ""]
+then
+    echo "Please retweet to spread awareness." > footer.txt
+    echo "" >> footer.txt
+    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
+else
+    echo "Please retweet to spread awareness." > footer_verbose.txt
+    echo "" >> footer_verbose.txt
+    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer_verbose.txt
+
+    echo "🔎 @$botname for details" > footer.txt
+    echo "" > footer.txt
+    cat footer_verbose.txt > footer.txt
+
+# create footer_verbose.txt
+cat footer.txt > footer_verbose.txt
 
 # create nCoV.sh
 make_launcher "nCoV.sh" "nCoV.py"
@@ -32,11 +49,11 @@ make_launcher "nCoV.sh" "nCoV.py"
 # create nCoV-notweet.sh
 make_launcher "nCoV-notweet.sh" "nCoV.py --notweet"
 
-# create nCoV-noload.sh
-make_launcher "nCoV-noload.sh" "nCoV.py --noload"
+# create nCoV-verbose.sh
+make_launcher "nCoV-verbose.sh" "nCoV.py --verbose"
 
-# create nCoV-notweet-noload.sh
-make_launcher "nCoV-notweet-noload.sh" "nCoV.py --notweet --noload"
+# create nCoV-notweet-verbose.sh
+make_launcher "nCoV-notweet-verbose.sh" "nCoV.py --notweet --verbose"
 
 # create virtual environment and install packages
 python3 -m venv venv
@@ -53,4 +70,4 @@ job="0 */2 * * * $cmd"
 chmod a+x nCoV*.sh
 
 echo $'\nTesting... If the following succeeds, the bot is set up and working! If not, you likely credentials.py or credentials.json.\n'
-./nCoV-notweet.sh
+./nCoV-notweet-verbose.sh
