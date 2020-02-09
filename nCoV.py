@@ -17,7 +17,7 @@ import argparse
 # Import nCoV_twitter methods (also imports time, credentials, and Tweepy)
 from nCoV_twitter import *
 
-# Import nCoV_parse methods (also imports nCoV_sheets, nCoV_fetch methods, Requests, json, gspread, oauth2client.service_account)
+# Import nCoV_parse methods (also imports nCoV_fetch methods, Requests, and json)
 from nCoV_parse import *
 
 # Main method
@@ -54,7 +54,6 @@ def main():
         try:
             api_verbose = get_twitter_api(consumer_key_verbose, consumer_secret_verbose, access_token_verbose, access_token_secret_verbose)
         except:
-            print()
             api_verbose = api
 
         tweet_arrays = build_verbose(not args.notweet, datecode, utctime.tm_hour)

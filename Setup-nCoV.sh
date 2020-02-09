@@ -25,25 +25,26 @@ make_launcher()
 echo "Please enter the name of your second bot. If none, just press enter."
 read botname
 
-# create footer.txt
-if [ botname = ""]
+# create footers
+if [ botname == "" ]
 then
-    echo "Please retweet to spread awareness." > footer.txt
+    echo "🔁 Retweet for awareness" > footer.txt
     echo "" >> footer.txt
     echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
 
     cat footer.txt > footer_verbose.txt
 else
-    echo "Please retweet to spread awareness." > footer_verbose.txt
-    echo "" >> footer_verbose.txt
+    echo "🔁 Retweet for awareness" > footer.txt
+    echo "" >> footer.txt
+    
+    cat footer.txt > footer_verbose.txt
+
+    echo "🔎 @$botname for details" >> footer.txt
+    echo "" >> footer.txt
+
+    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
     echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer_verbose.txt
-
-    echo "🔎 @$botname for details" > footer.txt
-    echo "" > footer.txt
-    cat footer_verbose.txt > footer.txt
-
-# create footer_verbose.txt
-cat footer.txt > footer_verbose.txt
+fi
 
 # create nCoV.sh
 make_launcher "nCoV.sh" "nCoV.py"
@@ -61,11 +62,17 @@ make_launcher "nCoV-notweet-verbose.sh" "nCoV.py --notweet --verbose"
 python3 -m venv venv
 source ./venv/bin/activate
 pip install --upgrade pip
-pip install requests==2.22.0 tweepy==3.8.0 gspread==3.2.0 oauth2client==4.1.3
+pip install requests==2.22.0 tweepy==3.8.0
 
-# create cronjob
+# create cronjobs
+mkdir cron_hist
+
 cmd="`pwd`/nCoV.sh >> `pwd`/cron_reports.txt"
 job="0 */2 * * * $cmd"
+( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
+
+cmd="mv `pwd`/cron_reports.txt `pwd`/cron_hist/cron_\`date\`.txt"
+job="0 0 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
 # permissions

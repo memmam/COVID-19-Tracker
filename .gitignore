@@ -2,6 +2,6 @@ credentials.*
 *.json
 venv
 nCoV*.sh
-test.sh
-__pycache__
 *.txt
+cron_logs
+__pycache__

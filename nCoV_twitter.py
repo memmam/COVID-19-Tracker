@@ -14,6 +14,7 @@
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
 import time
+import random
 
 # Get Twitter API access
 def get_twitter_api(key, secret, token, token_secret):
@@ -37,11 +38,22 @@ def output(send_flag, api, tweet_list):
 
     # Send master tweet
     if send_flag == True:
-        master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
+        master_tweet = api.update_with_media("corona.jpg",status=tweet_list[0])
+
+    iterations = 0
+    sec_ctr = 0
 
     # Output and post replies in list
     for i in range(1, length_i):
-        time.sleep(36)
+        sleep_secs = random.randint(20,36)
+        iterations = iterations + 1
+        sec_ctr = sec_ctr + (sleep_secs)
+        time.sleep(sleep_secs)
+
+        if(iterations == 25 and sec_ctr < 900):
+            sleep(900 - sec_ctr)
+            sec_ctr = 0
+            iterations = 0
 
         # Test print / terminal output
         print(f"\n{tweet_list[i]}")

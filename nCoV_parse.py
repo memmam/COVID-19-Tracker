@@ -12,9 +12,6 @@
 # Purpose: Methods for parsing Johns Hopkins data
 
 # Import nCoV-parse methods for parsing Johns Hopkins data
-from nCoV_sheets import *
-
-# Import nCoV-parse methods for parsing Johns Hopkins data
 from nCoV_fetch import *
 
 # Build stats tweet from requested data
@@ -48,7 +45,7 @@ def build_stats_tweet(send_flag, datecode, hour):
         stats = f"{stats} ({diff_arr[0]:+,})\n"
     else:
         stats = f"{stats}\n"
-    stats = f"{stats}❓ {qq_suspect:,} suspect"
+    stats = f"{stats}❓ {qq_suspect:,} suspected"
     if diff_arr[1] != 0:
         stats = f"{stats} ({diff_arr[1]:+,})\n"
     else:
@@ -62,7 +59,7 @@ def build_stats_tweet(send_flag, datecode, hour):
     if diff_arr[3] != 0:
         stats = f"{stats} ({diff_arr[3]:+,})"
     else:
-        stats = f"{stats}\n"
+        stats = f"{stats}"
     
     # Define footer
     try:
@@ -153,7 +150,7 @@ def parse_jh(jh_worksheet_list):
 
 # Get and parse Johns Hopkins CSSU data
 def get_parse_jh():
-    jh_worksheet = get_jh_worksheet()
+    jh_worksheet = 0
 
     # Catch failed spreadsheet load
     if jh_worksheet == 0:
@@ -342,7 +339,7 @@ def build_verbose(send_flag, datecode, hour):
                 f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:,} dead ({jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1] - historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:+,})\n")
             else:
                 child_tweet = (f"{child_tweet}"
-                f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:,}dead\n")
+                f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][1]:,} dead\n")
 
             if jh_parsed_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2] != historical_data[historical_keys[i]]['province_data'][historical_province_keys[j]][2]:
                 child_tweet = (f"{child_tweet}"
@@ -360,6 +357,7 @@ def build_verbose(send_flag, datecode, hour):
 
             thread.append(child_tweet)
 
+        print(thread)
         verbose_tweets.append(thread)
         thread = []
 
