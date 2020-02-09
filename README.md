@@ -67,7 +67,7 @@ Tweets are in the following format:
 #WuhanCoronavirus #coronavirus #2019nCoV
 ```
 
-If you are using a second bot for verbose data, between the last two lines is the line `🔎 @{second_bot} for details`
+If you are using a second account for verbose data, between the last two lines is the line `🔎 @{second_bot} for details`
 
 Verbose tweets are in the following formats:
 
