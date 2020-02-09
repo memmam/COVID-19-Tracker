@@ -1,6 +1,7 @@
 # Changelog
 
 ## 4.0-beta-x:
+- 4.0-beta-1: Fixed setup script, stubbed out / removed Google Sheets API (verbose output currently hardcoded to produce no output pending csv update)
 - 4.0-beta: Complete overhaul of front-facing UI, added full parsing engine and supporting code for location-based updates using Google Sheets (which was deprecated right as this release was being finalized, hence the beta and new version number, I need to rewrite it for GitHub-hosted .csv files)
 
 ## 3.2-beta-x

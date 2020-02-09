@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 2019-nCoV Tracker v4.0-beta
+# 2019-nCoV Tracker v4.0-beta-1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-08
+# Last updated: 2020-02-09
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #

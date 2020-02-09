@@ -1,9 +1,9 @@
-# 2019-nCoV Tracker v4.0-beta
+# 2019-nCoV Tracker v4.0-beta-1
 Twitter bot for posting information on spread of the 2019-20 Novel Coronavirus (2019-nCoV). The official instance of this bot can be found at [@2019nCoVTracker](https://twitter.com/2019nCoVTracker).
 
 # NOTICE
 
-The Google Sheets access for Johns Hopkins' data has been deprecated. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are thus in process of being removed and replaced in favor of the new data acquisition method, which is a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/2019-nCoV) GitHub repo. This is the reason for this being v4.0-beta and not v3.2 - due to the deprecated nature of the currently-implemented access method, it could break at any moment, and the new data acquisition method will require enough code rewrites and changes to systems that I am considering it a major version bump.
+The Google Sheets access for Johns Hopkins' data has been REMOVED. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are no longer needed, and verbose output has been stubbed for the time being. This has been done in favor of Johns Hopkins' new data posting method, a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/2019-nCoV) GitHub repo.
 
 # To create your own instance:
 
@@ -29,13 +29,7 @@ access_token_verbose = ''
 access_token_secret_verbose = ''
 ```
 
-3. Create a Google APIs & Services project [here](https://console.developers.google.com/), and add 'Google Sheets' in the API Library
-
-4. Create a service account for the project you just created, with the permission 'Project Editor'
-
-5. Download the JSON file for the service account, and put it in the same directory as `nCoV.py`, named `credentials.json`
-
-6. Run `Setup-nCoV.sh`. It will prompt you for the name of your second account for verbose output. If you are only using one account, just press enter. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
+3. Run `Setup-nCoV.sh`. It will prompt you for the name of your second account for verbose output. If you are only using one account, just press enter. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
 
 You're done! The bot should now be working.
 
