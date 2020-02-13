@@ -1,9 +1,11 @@
-# 2019-nCoV Tracker v4.0-beta-1
-Twitter bot for posting information on spread of the 2019-20 Novel Coronavirus (2019-nCoV). The official instance of this bot can be found at [@2019nCoVTracker](https://twitter.com/2019nCoVTracker).
+# COVID-19 Tracker v4.0-beta-1
+Twitter bot for posting information on spread of Coronavirus Disease 2019 (COVID-19). The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
-# NOTICE
+# NOTICES
 
-The Google Sheets access for Johns Hopkins' data has been REMOVED. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are no longer needed, and verbose output has been stubbed for the time being. This has been done in favor of Johns Hopkins' new data posting method, a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/2019-nCoV) GitHub repo.
+In process of switching all references to '2019-nCoV' to 'COVID-19'.
+
+The Google Sheets access for Johns Hopkins' data has been REMOVED. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are no longer needed, and verbose output has been stubbed for the time being. This has been done in favor of Johns Hopkins' new data posting method, a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/COVID-19) GitHub repo.
 
 # To create your own instance:
 
