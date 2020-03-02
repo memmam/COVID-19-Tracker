@@ -30,7 +30,7 @@ if [ botname == "" ]
 then
     echo "🔁 Retweet for awareness" > footer.txt
     echo "" >> footer.txt
-    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
+    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer.txt
 
     cat footer.txt > footer_verbose.txt
 else
@@ -42,8 +42,8 @@ else
     echo "🔎 @$botname for details" >> footer.txt
     echo "" >> footer.txt
 
-    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer.txt
-    echo -n "#WuhanCoronavirus #coronavirus #nCoV #2019nCoV" >> footer_verbose.txt
+    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer.txt
+    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer_verbose.txt
 fi
 
 # create nCoV.sh
@@ -62,7 +62,7 @@ make_launcher "nCoV-notweet-verbose.sh" "nCoV.py --notweet --verbose"
 python3 -m venv venv
 source ./venv/bin/activate
 pip install --upgrade pip
-pip install requests==2.22.0 tweepy==3.8.0
+pip install pandas requests==2.22.0 tweepy==3.8.0
 
 # create cronjobs
 mkdir cron_hist

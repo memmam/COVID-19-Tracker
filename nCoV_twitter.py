@@ -38,7 +38,7 @@ def output(send_flag, api, tweet_list):
 
     # Send master tweet
     if send_flag == True:
-        master_tweet = api.update_with_media("corona.jpg",status=tweet_list[0])
+        master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
 
     iterations = 0
     sec_ctr = 0
