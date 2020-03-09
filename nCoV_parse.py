@@ -20,12 +20,11 @@ def build_stats_tweet(send_flag, datecode, hour):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # scrapers
-    qq_suspect = get_qq(headers)
     jh_total, jh_dead, jh_recovered = get_jh(headers)
 
     # Collect tweet data as string for abort script in next line
     tweet_data = (f"{jh_total}\n"
-    f"{qq_suspect}\n"
+    f"{jh_total - jh_dead - jh_recovered}\n"
     f"{jh_dead}\n"
     f"{jh_recovered}\n")
 
@@ -45,7 +44,7 @@ def build_stats_tweet(send_flag, datecode, hour):
         stats = f"{stats} ({diff_arr[0]:+,})\n"
     else:
         stats = f"{stats}\n"
-    stats = f"{stats}❓ {qq_suspect:,} suspected"
+    stats = f"{stats}🏥 {jh_total - jh_dead - jh_recovered:,} active"
     if diff_arr[1] != 0:
         stats = f"{stats} ({diff_arr[1]:+,})\n"
     else:
@@ -106,7 +105,7 @@ def abort_nCoV(send_flag, tweet_data):
                 tweet_file.write(tweet_data)
                 tweet_file.close()
 
-            if last_tweet_data == tweet_data_arr:
+            if last_tweet_data == tweet_data_arr or tweet_data_arr == [0,0,0,0]:
                 print("No new data")
                 return True, [], []
     except:

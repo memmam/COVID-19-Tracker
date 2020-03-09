@@ -44,16 +44,3 @@ def get_jh(headers):
         jh_recovered = 0
 
     return jh_total, jh_dead, jh_recovered
-
-# Fetch Tencent QQ News data
-def get_qq(headers):
-    # Get QQ
-    try:
-        qq_res = requests.get('https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5',headers=headers, timeout=10)
-        qq_json = json.loads(qq_res.content.decode())
-        qq_json_data = json.loads(qq_json['data'])
-        qq_suspect = qq_json_data['chinaTotal']['suspect']
-    except:
-        qq_suspect = 0
-
-    return qq_suspect
