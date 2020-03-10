@@ -101,11 +101,12 @@ def abort_nCoV(send_flag, tweet_data):
             tweet_data_arr[i] = tweet_data_arr[i]
 
         if send_flag == True:
-            with open ("prev_nums.txt", "w") as tweet_file:
-                tweet_file.write(tweet_data)
-                tweet_file.close()
+            if tweet_data_arr[0] != 0 and tweet_data_arr[1] != 0 and tweet_data_arr[2] != 0 and tweet_data_arr[3] != 0:
+                with open ("prev_nums.txt", "w") as tweet_file:
+                    tweet_file.write(tweet_data)
+                    tweet_file.close()
 
-            if last_tweet_data == tweet_data_arr or tweet_data_arr == [0,0,0,0]:
+            if last_tweet_data == tweet_data_arr or tweet_data_arr[0] == 0 or tweet_data_arr[1] == 0 or tweet_data_arr[2] == 0 or tweet_data_arr[3] == 0:
                 print("No new data")
                 return True, [], []
     except:
