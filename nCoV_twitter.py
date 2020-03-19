@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.2-beta
+# Coronavirus Disease Tracker v4.2-b1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-18
+# Last updated: 2020-03-19
 #
-# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+# A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
 # Uses Requests, Tweepy, and gspread libraries
 #
@@ -101,6 +101,14 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
         f"{bio_bottom}")
     
     if send_flag == True:
-        api.update_profile(description=bio)
+        for attempt_no in range(1,3):
+            try:
+                api.update_profile(description=bio)
+            except:
+                if attempt_no <= 3:
+                    print("Retrying")
+                    sleep(random.randing(15,30))
+                else:
+                    raise error
 
     print(bio)

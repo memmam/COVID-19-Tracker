@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.2-beta
+# Coronavirus Disease Tracker v4.2-beta
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-03-18
 #

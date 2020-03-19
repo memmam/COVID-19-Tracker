@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# 2019-nCoV Tracker v4.2-beta
+# Coronavirus Disease Tracker v4.2-b1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-18
+# Last updated: 2020-03-19
 #
-# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+# A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
 # Uses Requests, Tweepy, and gspread libraries
 #
 # File: Setup-nCoV.sh
-# Purpose: Creates launcher scripts for COVID-19 Tracker
+# Purpose: Creates launcher scripts for Coronavirus Disease Tracker
 
 # launcher script function
 make_launcher()

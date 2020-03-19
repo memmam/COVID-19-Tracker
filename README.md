@@ -1,4 +1,4 @@
-# COVID-19 Tracker v4.2-beta
+# COVID-19 Tracker v4.2-b1
 Twitter bot for posting information on spread of Coronavirus Disease 2019 (COVID-19). The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
 # NOTICES
@@ -42,7 +42,7 @@ You're done! The bot should now be working.
 # About
 Cases, dead, and recovered counts are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).'
 
-This link leads to dashboards with visual maps as well as per-state statistics, in English, and sources information from the [WHO](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports), [CDC](https://www.cdc.gov/coronavirus/2019-ncov/index.html), [ECDC](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases), [NHC](http://www.nhc.gov.cn/yjb/s3578/new_list.shtml) and [DXY](https://ncov.dxy.cn/ncovh5/view/pneumonia?scene=2&clicktime=1579582238&enterid=1579582238&from=singlemessage&isappinstalled=0). It appears to be updated by hand, and thus are not 'up-to-the-minute'.
+This link leads to dashboards with visual maps as well as per-state statistics, in English, and sources information from the [WHO](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports), [CDC](https://www.cdc.gov/coronavirus/2019-ncov/index.html), [ECDC](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases), [NHC](http://www.nhc.gov.cn/xcs/yqtb/list_gzbd.shtml) and [DXY](https://ncov.dxy.cn/ncovh5/view/pneumonia?scene=2&clicktime=1579582238&enterid=1579582238&from=singlemessage&isappinstalled=0). It appears to be updated by hand, and thus are not 'up-to-the-minute'.
 
 Active cases count is derived by the following formula: (cases - dead - recovered = active)
 
@@ -74,7 +74,7 @@ Verbose tweets are in the following formats:
 
 🕕 YYYY-MM-DD HH:MM UTC
 
-🌐 2019-nCoV spotted for the first time in 1234567890123456789012345678
+🌐 COVID-19 spotted for the first time in 1234567890123456789012345678
 
 ☣️ NN,NNN,NNN cases
 💀 NN,NNN,NNN dead

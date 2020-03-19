@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.2-beta
+# Coronavirus Disease Tracker v4.2-b1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-18
+# Last updated: 2020-03-19
 #
-# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+# A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
 # Uses Requests, Tweepy, and gspread libraries
 #
 # File: nCoV.py
-# Purpose: Main driver for COVID-19 Tracker
+# Purpose: Main driver for Coronavirus Disease Tracker
 
 # Import for command line arguments
 import argparse

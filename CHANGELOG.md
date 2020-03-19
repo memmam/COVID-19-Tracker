@@ -2,6 +2,7 @@
 
 ## 4.2-beta-x:
 - 4.2-beta: Added 'last updated' output to Twitter bio
+- 4.2-b1: Major changes to Twitter-related logic to prevent bugs caused by Twitter being over-capacity.
 
 ## 4.1-beta-x:
 - 4.1-beta: Removed Tencent, added 'active' count, fixed various bugs with data fetching (code pushed to GitHub but not formally 'released' as a specific build)

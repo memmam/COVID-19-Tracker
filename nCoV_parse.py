@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.2-beta
+# Coronavirus Disease Tracker v4.2-b1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-18
+# Last updated: 2020-03-19
 #
-# A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
+# A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
 # Uses Requests, Tweepy, and gspread libraries
 #
@@ -217,7 +217,7 @@ def build_verbose(send_flag, datecode, hour):
     for i in range(new_keys_length):
         master_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
         f" {datecode}\n\n"
-        f"🌐 2019-nCoV spotted for the first time in {new_keys[i]}\n\n"
+        f"🌐 COVID-19 spotted for the first time in {new_keys[i]}\n\n"
         f"☣️ {jh_parsed_data[new_keys[i]]['total_confirmed']:,} cases\n"
         f"💀 {jh_parsed_data[new_keys[i]]['total_dead']:,} dead\n"
         f"✅ {jh_parsed_data[new_keys[i]]['total_recovered']:,} recovered")
@@ -237,7 +237,7 @@ def build_verbose(send_flag, datecode, hour):
             if province_keys[j] != "" and (province_keys[j] != new_keys[i] and province_keys_length != 0):
                 child_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
                 f"{clocks[hour]} {datecode}\n\n"
-                f"🌐 2019-nCoV spotted for the first time in {province_keys[j]}\n\n"
+                f"🌐 COVID-19 spotted for the first time in {province_keys[j]}\n\n"
                 f"☣️ {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][0]:,} cases\n"
                 f"💀 {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][1]:,} dead\n"
                 f"✅ {jh_parsed_data[new_keys[i]]['province_data'][province_keys[j]][2]:,} recovered\n\n"
@@ -300,7 +300,7 @@ def build_verbose(send_flag, datecode, hour):
         for j in range(new_province_keys_length):
             if new_province_keys[j] != "" and (new_province_keys[j] != historical_keys[i] and new_province_keys_length != 0):
                 child_tweet = (f"{datecode}\n\n"
-                f"🌐 2019-nCoV spotted for the first time in {new_province_keys[j]}\n\n"
+                f"🌐 COVID-19 spotted for the first time in {new_province_keys[j]}\n\n"
                 f"☣️ {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][0]:,} cases\n"
                 f"💀 {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][1]:,} dead\n"
                 f"✅ {jh_parsed_data[historical_keys[i]]['province_data'][new_province_keys[j]][2]:,} recovered\n\n"
