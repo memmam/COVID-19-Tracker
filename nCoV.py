@@ -40,17 +40,11 @@ def main():
     utctime = time.gmtime()
     datecode = f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} {utctime.tm_hour:02}:{utctime.tm_min:02} UTC"
 
-    # Build stats tweet and add to list
-    stats_tweet = build_stats_tweet(not args.notweet, datecode, utctime.tm_hour)
-
-    # Update bio
-    lastcheckedupdate(not args.notweet, api, datecode, utctime.tm_hour)
-
-    if stats_tweet == "ABORT":
-        exit()
+    # Build stats tweet, get csv data
+    stats_tweet, nCoV_data, jh_total_csv, jh_dead_csv, jh_recovered_csv = build_stats_tweet(not args.notweet, api, datecode, utctime.tm_hour)
 
     # Send main tweet
-    output(not args.notweet, api, [stats_tweet])
+    output(not args.notweet, api, [stats_tweet], nCoV_data)
 
     if args.verbose:
         # Get API keys for second Twitter account if one exists, else default to the main Twitter account

@@ -29,7 +29,7 @@ def get_twitter_api(key, secret, token, token_secret):
     return api
 
 # Send nCoV tweets
-def output(send_flag, api, tweet_list):
+def output(send_flag, api, tweet_list, tweet_data):
     # Prepare for list output
     length_i = len(tweet_list)
 
@@ -38,7 +38,19 @@ def output(send_flag, api, tweet_list):
 
     # Send master tweet
     if send_flag == True:
-        master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
+        for attempt_no in range(1,3):
+            try:
+                master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
+                with open ("prev_nums.txt", "w") as tweet_file:
+                    tweet_file.write(tweet_data)
+                    tweet_file.close()
+                break
+            except:
+                if attempt_no <= 3:
+                    print("Retrying")
+                    sleep(random.randing(15,30))
+                else:
+                    raise error
 
     iterations = 0
     sec_ctr = 0
@@ -62,9 +74,8 @@ def output(send_flag, api, tweet_list):
         if send_flag == True:
             master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)
 
-def lastcheckedupdate(send_flag, api, datecode, hour):
-    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
-    lastupdated = f"{clocks[hour]} Last updated {datecode}"
+def lastcheckedupdate(clock, send_flag, api, datecode):
+    lastupdated = f"{clock} Updated {datecode}"
 
     # Define footer
     try:

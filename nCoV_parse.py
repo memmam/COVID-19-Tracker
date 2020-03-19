@@ -13,14 +13,15 @@
 
 # Import nCoV-parse methods for parsing Johns Hopkins data
 from nCoV_fetch import *
+from nCoV_twitter import *
 
 # Build stats tweet from requested data
-def build_stats_tweet(send_flag, datecode, hour):
+def build_stats_tweet(send_flag, api, datecode, hour):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # scrapers
-    jh_total, jh_dead, jh_recovered = get_jh(headers)
+    jh_total, jh_dead, jh_recovered, jh_total_csv, jh_dead_csv, jh_recovered_csv = get_jh(headers)
 
     # Collect tweet data as string for abort script in next line
     tweet_data = (f"{jh_total}\n"
@@ -28,10 +29,11 @@ def build_stats_tweet(send_flag, datecode, hour):
     f"{jh_dead}\n"
     f"{jh_recovered}\n")
 
-    abort_flag, prev_arr, curr_arr = abort_nCoV(send_flag, tweet_data)
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
 
-    if abort_flag == True:
-        return "ABORT"
+    lastcheckedupdate(clocks[hour], send_flag, api, datecode)
+
+    prev_arr, curr_arr = comp_nCoV(send_flag, tweet_data)
 
     diff_arr = []
 
@@ -68,8 +70,6 @@ def build_stats_tweet(send_flag, datecode, hour):
     except:
         footer=""
 
-    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
-
     # Build statistics tweet
     stats_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
     f"{clocks[hour]} {datecode}\n\n"
@@ -79,42 +79,37 @@ def build_stats_tweet(send_flag, datecode, hour):
         stats_tweet = (f"{stats_tweet}\n\n"
         f"{footer}")
 
-    return stats_tweet
+    return stats_tweet, tweet_data, jh_total_csv, jh_dead_csv, jh_recovered_csv
 
-def abort_nCoV(send_flag, tweet_data):
-    # If no new data, abort
+def comp_nCoV(send_flag, tweet_data):
+    # Process data for tweet
     try:
         with open ("prev_nums.txt", "r") as tweet_file:
             last_tweet_data = tweet_file.readlines()
             tweet_file.close()
-            
-        length = len(last_tweet_data)
-
-        for i in range(length):
-            last_tweet_data[i] = int(last_tweet_data[i].replace('\n', ''))
-
-        tweet_data_arr = tweet_data.split('\n')[0:4]
-        length = len(tweet_data_arr)
-
-        for i in range(length):
-            tweet_data_arr[i] = int(tweet_data_arr[i])
-            tweet_data_arr[i] = tweet_data_arr[i]
-
-        if send_flag == True:
-            if tweet_data_arr[0] != 0 and tweet_data_arr[1] != 0 and tweet_data_arr[2] != 0 and tweet_data_arr[3] != 0:
-                with open ("prev_nums.txt", "w") as tweet_file:
-                    tweet_file.write(tweet_data)
-                    tweet_file.close()
-
-            if last_tweet_data == tweet_data_arr or tweet_data_arr[0] == 0 or tweet_data_arr[1] == 0 or tweet_data_arr[2] == 0 or tweet_data_arr[3] == 0:
-                print("No new data")
-                return True, [], []
     except:
         with open ("prev_nums.txt", "w") as tweet_file:
             tweet_file.write(tweet_data)
+            last_tweet_data = tweet_data
             tweet_file.close()
 
-    return False, last_tweet_data, tweet_data_arr
+    length = len(last_tweet_data)
+
+    for i in range(length):
+        last_tweet_data[i] = int(last_tweet_data[i].replace('\n', ''))
+
+    tweet_data_arr = tweet_data.split('\n')[0:4]
+    length = len(tweet_data_arr)
+
+    for i in range(length):
+        tweet_data_arr[i] = int(tweet_data_arr[i])
+        tweet_data_arr[i] = tweet_data_arr[i]
+
+        if last_tweet_data == tweet_data_arr or tweet_data_arr[0] == 0 or tweet_data_arr[1] == 0 or tweet_data_arr[2] == 0 or tweet_data_arr[3] == 0:
+            print("No new data")
+            exit()
+
+    return last_tweet_data, tweet_data_arr
 
 # Parser for JH spreadsheet
 def parse_jh(jh_worksheet_list):
