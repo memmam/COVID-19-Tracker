@@ -1,9 +1,11 @@
-# COVID-19 Tracker v4.0-beta-1
+# COVID-19 Tracker v4.2-beta
 Twitter bot for posting information on spread of Coronavirus Disease 2019 (COVID-19). The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
 # NOTICES
 
 In process of switching all references to '2019-nCoV' to 'COVID-19'.
+
+Please note the Tencent QQ News scraping has been removed in favor of an 'active cases' count.  
 
 The Google Sheets access for Johns Hopkins' data has been REMOVED. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are no longer needed, and verbose output has been stubbed for the time being. This has been done in favor of Johns Hopkins' new data posting method, a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/COVID-19) GitHub repo.
 
@@ -33,16 +35,16 @@ access_token_secret_verbose = ''
 
 3. Run `Setup-nCoV.sh`. It will prompt you for the name of your second account for verbose output. If you are only using one account, just press enter. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
 
+Please note the bot will automatically overwrite your Twitter bio with a 'last updated' statistic. If you have a bio you want to use in addition to this, please create 'bio_top.txt' and 'bio_bottom.txt' files containing your desired information. The last updated count will appear between the text contained in these two files, both of which are optional.
+
 You're done! The bot should now be working.
 
 # About
-Cases, dead, and recovered counts are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).
+Cases, dead, and recovered counts are from the [Johns Hopkins University CSSE tracker](https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6).'
 
-Suspected count is from the [Tencent QQ News tracker](https://news.qq.com/zt2020/page/feiyan.htm).
+This link leads to dashboards with visual maps as well as per-state statistics, in English, and sources information from the [WHO](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports), [CDC](https://www.cdc.gov/coronavirus/2019-ncov/index.html), [ECDC](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases), [NHC](http://www.nhc.gov.cn/yjb/s3578/new_list.shtml) and [DXY](https://ncov.dxy.cn/ncovh5/view/pneumonia?scene=2&clicktime=1579582238&enterid=1579582238&from=singlemessage&isappinstalled=0). It appears to be updated by hand, and thus are not 'up-to-the-minute'.
 
-Johns Hopkins CSSE is at this time not publishing a 'suspected cases' count, hence why that number is sourced from Tencent QQ News.
-
-Both of those links lead to dashboards with visual maps as well as per-city statistics. The Johns Hopkins CSSE link is in English and sources information from the [WHO](https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports), [CDC](https://www.cdc.gov/coronavirus/2019-ncov/index.html), [ECDC](https://www.ecdc.europa.eu/en/geographical-distribution-2019-ncov-cases), [NHC](http://www.nhc.gov.cn/yjb/s3578/new_list.shtml) and [DXY](https://ncov.dxy.cn/ncovh5/view/pneumonia?scene=2&clicktime=1579582238&enterid=1579582238&from=singlemessage&isappinstalled=0). The Tencent QQ News link is in Chinese and sources information from "national and local health committees". Both appear to be updated by hand, and thus are not 'up-to-the-minute'.
+Active cases count is derived by the following formula: (cases - dead - recovered = active)
 
 Tweets are time-and-datestamped based on time of data being fetched and posted to Twitter. Time-and-datestamp does NOT refer to when the information was last updated. For that, see the links above.
 
@@ -54,13 +56,13 @@ Tweets are in the following format:
 🕕 YYYY-MM-DD HH:MM UTC
 
 ☣️ NN,NNN,NNN cases (+NN,NNN)
-❓ NN,NNN,NNN suspect (+NN,NNN)
+🏥 NN,NNN,NNN active (+NN,NNN)
 💀 NN,NNN,NNN dead (+NN,NNN)
 ✅ NN,NNN,NNN recovered (+NN,NNN)
 
 🔁 Retweet for awareness
 
-#WuhanCoronavirus #coronavirus #2019nCoV
+#coronavirus #COVID19 #2019nCoV
 ```
 
 If you are using a second account for verbose data, between the last two lines is the line `🔎 @{second_bot} for details`
@@ -82,7 +84,7 @@ Verbose tweets are in the following formats:
 
 🔁 Retweet for awareness
 
-#WuhanCoronavirus #coronavirus #2019nCoV
+#coronavirus #COVID19 #2019nCoV
 ```
 
 ```
@@ -100,7 +102,7 @@ Verbose tweets are in the following formats:
 
 🔁 Retweet for awareness
 
-#WuhanCoronavirus #coronavirus #2019nCoV
+#coronavirus #COVID19 #2019nCoV
 ```
 
 This bot will, if functioning normally, check for new data once every two hours, and only post when there is new data. If any problems arise, please report them to @Math#7777 on Discord.
@@ -117,8 +119,8 @@ Credit to the CDC for the official instance's Twitter profile picture.
 
 This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/), [Tweepy](https://www.tweepy.org/), and [gspread](https://github.com/burnash/gspread) libraries.
 
-Data tracked by this bot is Copyright 2020 Johns Hopkins University and Tencent QQ.
+Data tracked by this bot is Copyright 2020 Johns Hopkins University.
 
 # Terms of Use
 
-The Johns Hopkins University data tracked by this bot is provided to the public strictly for educational and academic research purposes. The data is built from publicly available data from multiple sources, that do not always agree. Both I and Johns Hopkins University hereby disclaim any and all representations and warranties with respect to the bot and related data, including accuracy, fitness for use, and merchantability. Reliance on the bot or data for medical guidance or use of the data in commerce is strictly prohibited by both me and Johns Hopkins University. As for the Tencent data, there is not enough attribution to properly source and verify it, and neither I nor Johns Hopkins owns said data, so this applies to it as well.
+The Johns Hopkins University data tracked by this bot is provided to the public strictly for educational and academic research purposes. The data is built from publicly available data from multiple sources, that do not always agree. Both I and Johns Hopkins University hereby disclaim any and all representations and warranties with respect to the bot and related data, including accuracy, fitness for use, and merchantability. Reliance on the bot or data for medical guidance or use of the data in commerce is strictly prohibited by both me and Johns Hopkins University.

@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.0-beta-1
+# 2019-nCoV Tracker v4.2-beta
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-09
+# Last updated: 2020-03-18
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -62,9 +62,9 @@ def build_stats_tweet(send_flag, datecode, hour):
     
     # Define footer
     try:
-        with open ("footer.txt", "r") as hash_file:
-            footer=hash_file.read()
-            hash_file.close()
+        with open ("footer.txt", "r") as footer_file:
+            footer=footer_file.read()
+            footer_file.close()
     except:
         footer=""
 
@@ -202,9 +202,9 @@ def build_verbose(send_flag, datecode, hour):
 
     # Define footer
     try:
-        with open ("footer_verbose.txt", "r") as hash_file:
-            footer=hash_file.read()
-            hash_file.close()
+        with open ("footer_verbose.txt", "r") as footer_file:
+            footer=footer_file.read()
+            footer_file.close()
     except:
         footer=""
 

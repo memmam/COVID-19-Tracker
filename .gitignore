@@ -5,3 +5,4 @@ nCoV*.sh
 *.txt
 cron_logs
 __pycache__
+*test*

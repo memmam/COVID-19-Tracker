@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.0-beta-1
+# 2019-nCoV Tracker v4.2-beta
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-09
+# Last updated: 2020-03-18
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -61,3 +61,35 @@ def output(send_flag, api, tweet_list):
         # Send tweets
         if send_flag == True:
             master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)
+
+def lastcheckedupdate(send_flag, api, datecode, hour):
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+    lastupdated = f"{clocks[hour]} Last updated {datecode}"
+
+    # Define footer
+    try:
+        with open ("bio_top.txt", "r") as top_file:
+            bio_top=top_file.read()
+            top_file.close()
+    except:
+        bio_top=""
+
+    try:
+        with open ("bio_bottom.txt", "r") as bottom_file:
+            bio_bottom=bottom_file.read()
+            bottom_file.close()
+    except:
+        bio_bottom=""
+
+    if bio_top != "":
+        bio = (f"{bio_top}\n"
+        f"{lastupdated}")
+    
+    if bio_bottom != "":
+        bio = (f"{bio}\n"
+        f"{bio_bottom}")
+    
+    if send_flag == True:
+        api.update_profile(description=bio)
+
+    print(bio)

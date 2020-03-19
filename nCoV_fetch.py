@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.0-beta-1
+# 2019-nCoV Tracker v4.2-beta
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-09
+# Last updated: 2020-03-18
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
@@ -25,7 +25,7 @@ def get_jh(headers):
         jh_total_json = json.loads(jh_total_res.content.decode())
         jh_total = jh_total_json['features'][0]['attributes']['value']
     except:
-        jh_total = 0
+        exit()
 
     # Get Johns Hopkins deaths
     try:
@@ -33,7 +33,7 @@ def get_jh(headers):
         jh_dead_json = json.loads(jh_dead_res.content.decode())
         jh_dead = jh_dead_json['features'][0]['attributes']['value']
     except:
-        jh_dead = 0
+        exit()
 
     # Get Johns Hopkins recoveries
     try:
@@ -41,6 +41,6 @@ def get_jh(headers):
         jh_recovered_json = json.loads(jh_recovered_res.content.decode())
         jh_recovered = jh_recovered_json['features'][0]['attributes']['value']
     except:
-        jh_recovered = 0
+        exit()
 
     return jh_total, jh_dead, jh_recovered

@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 
-# 2019-nCoV Tracker v4.0-beta-1
+# 2019-nCoV Tracker v4.2-beta
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-02-09
+# Last updated: 2020-03-18
 #
 # A Twitter bot for posting information on the spread of the 2019-nCoV outbreak
 #
 # Uses Requests, Tweepy, and gspread libraries
 #
 # File: nCoV.py
-# Purpose: Main driver for 2019-nCoV Tracker
+# Purpose: Main driver for COVID-19 Tracker
 
 # Import for command line arguments
 import argparse
@@ -42,6 +42,9 @@ def main():
 
     # Build stats tweet and add to list
     stats_tweet = build_stats_tweet(not args.notweet, datecode, utctime.tm_hour)
+
+    # Update bio
+    lastcheckedupdate(not args.notweet, api, datecode, utctime.tm_hour)
 
     if stats_tweet == "ABORT":
         exit()
