@@ -6,7 +6,7 @@
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
-# Uses Requests, Tweepy, and gspread libraries
+# Uses Requests, Tweepy, and pandas libraries
 #
 # File: nCoV_parse.py
 # Purpose: Methods for parsing Johns Hopkins data
@@ -16,49 +16,72 @@ from nCoV_fetch import *
 from nCoV_twitter import *
 
 # Build stats tweet from requested data
-def build_stats_tweet(send_flag, api, datecode, hour):
+def build_stats_tweet(send_flag, api, datecode, datecode_hour, hour):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
     # scrapers
-    jh_total, jh_dead, jh_recovered, jh_total_csv, jh_dead_csv, jh_recovered_csv = get_jh(headers)
+    jh_total, jh_dead, jh_recovered, jh_total_cn, jh_dead_cn, jh_recovered_cn, jh_total_csv, jh_dead_csv, jh_recovered_csv = get_jh(headers)
 
-    # Collect tweet data as string for abort script in next line
+    # Collect tweet data as string for comp in next line
     tweet_data = (f"{jh_total}\n"
     f"{jh_total - jh_dead - jh_recovered}\n"
     f"{jh_dead}\n"
-    f"{jh_recovered}\n")
+    f"{jh_recovered}\n"
+    f"{jh_total_cn}\n"
+    f"{jh_total_cn - jh_dead_cn - jh_recovered_cn}\n"
+    f"{jh_dead_cn}\n"
+    f"{jh_recovered_cn}\n")
 
     clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
 
-    lastcheckedupdate(clocks[hour], send_flag, api, datecode)
-
-    prev_arr, curr_arr = comp_nCoV(send_flag, tweet_data)
+    prev_arr, curr_arr = comp_nCoV(clocks[hour], send_flag, api, tweet_data, datecode)
 
     diff_arr = []
 
-    for i in range(4):
+    for i in range(len(prev_arr)):
         diff_arr.append(curr_arr[i] - prev_arr[i])
 
     # Construct statistics
-    stats = f"☣️ {jh_total:,} cases"
+    stats = f"☣️{jh_total:,}"
     if diff_arr[0] != 0:
         stats = f"{stats} ({diff_arr[0]:+,})\n"
     else:
         stats = f"{stats}\n"
-    stats = f"{stats}🏥 {jh_total - jh_dead - jh_recovered:,} active"
+    stats = f"{stats}🏥{jh_total - jh_dead - jh_recovered:,} active"
     if diff_arr[1] != 0:
         stats = f"{stats} ({diff_arr[1]:+,})\n"
     else:
         stats = f"{stats}\n"
-    stats = f"{stats}💀 {jh_dead:,} dead"
+    stats = f"{stats}💀{jh_dead:,} dead"
     if diff_arr[2] != 0:
         stats = f"{stats} ({diff_arr[2]:+,})\n"
     else:
         stats = f"{stats}\n"
-    stats = f"{stats}✅ {jh_recovered:,} recovered"
+    stats = f"{stats}✅{jh_recovered:,} recovered"
     if diff_arr[3] != 0:
         stats = f"{stats} ({diff_arr[3]:+,})"
+    else:
+        stats = f"{stats}"
+
+    stats = f"{stats}\n\nOutside China:\n☣️{jh_total - jh_total_cn:,}"
+    if diff_arr[0] - diff_arr[4] != 0:
+        stats = f"{stats} ({diff_arr[0] - diff_arr[4]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}🏥{(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
+    if diff_arr[1] - diff_arr[5] != 0:
+        stats = f"{stats} ({diff_arr[1] - diff_arr[5]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}💀{jh_dead - jh_dead_cn:,} dead"
+    if diff_arr[2] - diff_arr[6] != 0:
+        stats = f"{stats} ({diff_arr[2] - diff_arr[6]:+,})\n"
+    else:
+        stats = f"{stats}\n"
+    stats = f"{stats}✅{jh_recovered - jh_recovered_cn:,} recovered"
+    if diff_arr[3] - diff_arr[7] != 0:
+        stats = f"{stats} ({diff_arr[3] - diff_arr[7]:+,})"
     else:
         stats = f"{stats}"
     
@@ -71,8 +94,8 @@ def build_stats_tweet(send_flag, api, datecode, hour):
         footer=""
 
     # Build statistics tweet
-    stats_tweet = ("⚠️ Coronavirus Update ⚠️\n\n"
-    f"{clocks[hour]} {datecode}\n\n"
+    stats_tweet = ("⚠️#Coronavirus Update⚠️\n\n"
+    f"{clocks[hour]}{datecode_hour}\n\n"
     f"{stats}")
 
     if footer != "":
@@ -81,7 +104,7 @@ def build_stats_tweet(send_flag, api, datecode, hour):
 
     return stats_tweet, tweet_data, jh_total_csv, jh_dead_csv, jh_recovered_csv
 
-def comp_nCoV(send_flag, tweet_data):
+def comp_nCoV(clock, send_flag, api, tweet_data, datecode):
     # Process data for tweet
     try:
         with open ("prev_nums.txt", "r") as tweet_file:
@@ -90,7 +113,7 @@ def comp_nCoV(send_flag, tweet_data):
     except:
         with open ("prev_nums.txt", "w") as tweet_file:
             tweet_file.write(tweet_data)
-            last_tweet_data = tweet_data
+            last_tweet_data = tweet_data.split('\n')[0:8]
             tweet_file.close()
 
     length = len(last_tweet_data)
@@ -98,15 +121,16 @@ def comp_nCoV(send_flag, tweet_data):
     for i in range(length):
         last_tweet_data[i] = int(last_tweet_data[i].replace('\n', ''))
 
-    tweet_data_arr = tweet_data.split('\n')[0:4]
+    tweet_data_arr = tweet_data.split('\n')[0:8]
     length = len(tweet_data_arr)
 
     for i in range(length):
         tweet_data_arr[i] = int(tweet_data_arr[i])
-        tweet_data_arr[i] = tweet_data_arr[i]
 
-        if last_tweet_data == tweet_data_arr or tweet_data_arr[0] == 0 or tweet_data_arr[1] == 0 or tweet_data_arr[2] == 0 or tweet_data_arr[3] == 0:
+    if send_flag == True:
+        if last_tweet_data == tweet_data_arr or tweet_data_arr[0] == 0 or tweet_data_arr[1] == 0 or tweet_data_arr[2] == 0 or tweet_data_arr[3] == 0 or tweet_data_arr[4] == 0 or tweet_data_arr[5] == 0 or tweet_data_arr[6] == 0 or tweet_data_arr[7] == 0:
             print("No new data")
+            lastcheckedupdate(clock, send_flag, api, datecode)
             exit()
 
     return last_tweet_data, tweet_data_arr
@@ -179,7 +203,7 @@ def load_historical(send_flag, jh_parsed_data):
     return historical_data
 
 # Build replies from processed data
-def build_verbose(send_flag, datecode, hour):
+def build_verbose(send_flag, datecode, datecode_hour, hour):
     # List to store tweet lists
     verbose_tweets = []
 

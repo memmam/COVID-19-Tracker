@@ -6,7 +6,7 @@
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
-# Uses Requests, Tweepy, and gspread libraries
+# Uses Requests, Tweepy, and pandas libraries
 #
 # File: Setup-nCoV.sh
 # Purpose: Creates launcher scripts for Coronavirus Disease Tracker
@@ -71,7 +71,7 @@ cmd="`pwd`/nCoV.sh >> `pwd`/cron_reports.txt"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
-cmd="mv `pwd`/cron_reports.txt `pwd`/cron_hist/cron_\`date\`.txt"
+cmd="mv `pwd`/cron_reports.txt \"`pwd`/cron_hist/cron_\`date +%F\`.txt\""
 job="0 0 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 

@@ -6,7 +6,7 @@
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
-# Uses Requests, Tweepy, and gspread libraries
+# Uses Requests, Tweepy, and pandas libraries
 #
 # File: nCoV_twitter.py
 # Purpose: Methods for nCoV.py that use Twitter API
@@ -29,7 +29,10 @@ def get_twitter_api(key, secret, token, token_secret):
     return api
 
 # Send nCoV tweets
-def output(send_flag, api, tweet_list, tweet_data):
+def output(send_flag, api, tweet_list, tweet_data, datecode, hour):
+
+    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+
     # Prepare for list output
     length_i = len(tweet_list)
 
@@ -48,9 +51,10 @@ def output(send_flag, api, tweet_list, tweet_data):
             except:
                 if attempt_no <= 3:
                     print("Retrying")
-                    sleep(random.randing(15,30))
+                    sleep(random.randint(15,30))
                 else:
                     raise error
+        lastcheckedupdate(clocks[hour], send_flag, api, datecode)
 
     iterations = 0
     sec_ctr = 0
@@ -72,7 +76,16 @@ def output(send_flag, api, tweet_list, tweet_data):
 
         # Send tweets
         if send_flag == True:
-            master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)
+            for attempt_no in range(1,3):
+                try:
+                    master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)
+                except:
+                    if attempt_no <= 3:
+                        print("Retrying")
+                        sleep(random.randint(15,30))
+                    else:
+                        raise error
+            lastcheckedupdate(clocks[hour], send_flag, api, datecode)
 
 def lastcheckedupdate(clock, send_flag, api, datecode):
     lastupdated = f"{clock} Updated {datecode}"
@@ -107,7 +120,7 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
             except:
                 if attempt_no <= 3:
                     print("Retrying")
-                    sleep(random.randing(15,30))
+                    sleep(random.randint(15,30))
                 else:
                     raise error
 
