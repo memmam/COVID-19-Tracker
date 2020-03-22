@@ -16,7 +16,7 @@ from nCoV_fetch import *
 from nCoV_twitter import *
 
 # Build stats tweet from requested data
-def build_stats_tweet(send_flag, api, datecode, datecode_hour, hour):
+def build_stats(send_flag, api, datecode, datecode_hour, hour):
     # request header
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36', "Upgrade-Insecure-Requests": "1","DNT": "1","Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","Accept-Language": "en-US,en;q=0.5","Accept-Encoding": "gzip, deflate"}
 
@@ -42,49 +42,95 @@ def build_stats_tweet(send_flag, api, datecode, datecode_hour, hour):
     for i in range(len(prev_arr)):
         diff_arr.append(curr_arr[i] - prev_arr[i])
 
-    # Construct statistics
-    stats = f"☣️{jh_total:,}"
+    # Construct statistics for Twitter
+    stats_twitter = f"☣️{jh_total:,}"
     if diff_arr[0] != 0:
-        stats = f"{stats} ({diff_arr[0]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[0]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}🏥{jh_total - jh_dead - jh_recovered:,} active"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}🏥{jh_total - jh_dead - jh_recovered:,} active"
     if diff_arr[1] != 0:
-        stats = f"{stats} ({diff_arr[1]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[1]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}💀{jh_dead:,} dead"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}💀{jh_dead:,} dead"
     if diff_arr[2] != 0:
-        stats = f"{stats} ({diff_arr[2]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[2]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}✅{jh_recovered:,} recovered"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}✅{jh_recovered:,} recovered"
     if diff_arr[3] != 0:
-        stats = f"{stats} ({diff_arr[3]:+,})"
+        stats_twitter = f"{stats_twitter} ({diff_arr[3]:+,})"
     else:
-        stats = f"{stats}"
+        stats_twitter = f"{stats_twitter}"
 
-    stats = f"{stats}\n\nOutside China:\n☣️{jh_total - jh_total_cn:,}"
+    stats_twitter = f"{stats_twitter}\n\nOutside China:\n☣️{jh_total - jh_total_cn:,}"
     if diff_arr[0] - diff_arr[4] != 0:
-        stats = f"{stats} ({diff_arr[0] - diff_arr[4]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[0] - diff_arr[4]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}🏥{(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}🏥{(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
     if diff_arr[1] - diff_arr[5] != 0:
-        stats = f"{stats} ({diff_arr[1] - diff_arr[5]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[1] - diff_arr[5]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}💀{jh_dead - jh_dead_cn:,} dead"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}💀{jh_dead - jh_dead_cn:,} dead"
     if diff_arr[2] - diff_arr[6] != 0:
-        stats = f"{stats} ({diff_arr[2] - diff_arr[6]:+,})\n"
+        stats_twitter = f"{stats_twitter} ({diff_arr[2] - diff_arr[6]:+,})\n"
     else:
-        stats = f"{stats}\n"
-    stats = f"{stats}✅{jh_recovered - jh_recovered_cn:,} recovered"
+        stats_twitter = f"{stats_twitter}\n"
+    stats_twitter = f"{stats_twitter}✅{jh_recovered - jh_recovered_cn:,} recovered"
     if diff_arr[3] - diff_arr[7] != 0:
-        stats = f"{stats} ({diff_arr[3] - diff_arr[7]:+,})"
+        stats_twitter = f"{stats_twitter} ({diff_arr[3] - diff_arr[7]:+,})"
     else:
-        stats = f"{stats}"
-    
+        stats_twitter = f"{stats_twitter}"
+
+    # Construct statistics for Discord
+    stats_discord = f"Worldwide:\n☣️ {jh_total:,}"
+    if diff_arr[0] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[0]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}🏥 {jh_total - jh_dead - jh_recovered:,} active"
+    if diff_arr[1] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[1]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}💀 {jh_dead:,} dead"
+    if diff_arr[2] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[2]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}✅ {jh_recovered:,} recovered"
+    if diff_arr[3] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[3]:+,})"
+    else:
+        stats_discord = f"{stats_discord}"
+
+    stats_discord = f"{stats_discord}\n\nOutside China:\n☣️ {jh_total - jh_total_cn:,}"
+    if diff_arr[0] - diff_arr[4] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[0] - diff_arr[4]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}🏥 {(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
+    if diff_arr[1] - diff_arr[5] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[1] - diff_arr[5]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}💀 {jh_dead - jh_dead_cn:,} dead"
+    if diff_arr[2] - diff_arr[6] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[2] - diff_arr[6]:+,})\n"
+    else:
+        stats_discord = f"{stats_discord}\n"
+    stats_discord = f"{stats_discord}✅ {jh_recovered - jh_recovered_cn:,} recovered"
+    if diff_arr[3] - diff_arr[7] != 0:
+        stats_discord = f"{stats_discord} ({diff_arr[3] - diff_arr[7]:+,})"
+    else:
+        stats_discord = f"{stats_discord}"
+
+    # Discord datestamp
+    date_discord = f"{clocks[hour]} Last Updated: {datecode}"
+
     # Define footer
     try:
         with open ("footer.txt", "r") as footer_file:
@@ -96,13 +142,13 @@ def build_stats_tweet(send_flag, api, datecode, datecode_hour, hour):
     # Build statistics tweet
     stats_tweet = ("⚠️#Coronavirus Update⚠️\n\n"
     f"{clocks[hour]}{datecode_hour}\n\n"
-    f"{stats}")
+    f"{stats_twitter}")
 
     if footer != "":
         stats_tweet = (f"{stats_tweet}\n\n"
         f"{footer}")
 
-    return stats_tweet, tweet_data, jh_total_csv, jh_dead_csv, jh_recovered_csv
+    return stats_tweet, stats_discord, date_discord, tweet_data, jh_total_csv, jh_dead_csv, jh_recovered_csv
 
 def comp_nCoV(clock, send_flag, api, tweet_data, datecode):
     # Process data for tweet

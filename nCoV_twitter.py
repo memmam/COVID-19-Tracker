@@ -16,6 +16,9 @@ from credentials import *
 import time
 import random
 
+# Import Discord webhook support
+from discord_webhook import DiscordWebhook, DiscordEmbed
+
 # Get Twitter API access
 def get_twitter_api(key, secret, token, token_secret):
     # Authenticate to Twitter
@@ -29,7 +32,7 @@ def get_twitter_api(key, secret, token, token_secret):
     return api
 
 # Send nCoV tweets
-def output(send_flag, api, tweet_list, tweet_data, datecode, hour):
+def output(send_flag, api, tweet_list, stats_discord, date_discord, tweet_data, datecode, hour):
 
     clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
 
@@ -55,6 +58,34 @@ def output(send_flag, api, tweet_list, tweet_data, datecode, hour):
                 else:
                     raise error
         lastcheckedupdate(clocks[hour], send_flag, api, datecode)
+
+    try:
+        with open ("webhooks.txt", "r") as webhook_file:
+            webhook_urls = webhook_file.readlines()
+            webhook_file.close()
+
+            embed = DiscordEmbed(description=stats_discord, color=16737792)
+            embed.set_footer(text=date_discord)
+
+            try:
+                embed.set_author(name='⚠️ Coronavirus Update ⚠️', url=f"https://twitter.com/{master_tweet.user.screen_name}/status/{master_tweet.id}")
+            except:
+                embed.set_author(name='⚠️ Coronavirus Update ⚠️', url=f"https://twitter.com/{api.me().screen_name}")
+
+            for i in range(len(webhook_urls)):
+                webhook_urls[i] = webhook_urls[i].replace("\n", "")
+
+            webhook = DiscordWebhook(url=webhook_urls)
+            webhook.add_embed(embed)
+
+            if send_flag == True:
+                response = webhook.execute()
+
+            webhook_output = f"⚠️   Coronavirus Update   ⚠️\n\n{stats_discord}\n\n{date_discord}"
+            print(webhook_output)
+
+    except:
+        print("No webhooks set! Skipping Discord output.")
 
     iterations = 0
     sec_ctr = 0
