@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Coronavirus Disease Tracker v6.0-b
+# Coronavirus Disease Tracker v6.0-b1
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-22
+# Last updated: 2020-03-23
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
@@ -21,30 +21,10 @@ make_launcher()
     echo "python3 $2" >> $1
 }
 
-# get user input
-echo "Please enter the name of your second bot. If none, just press enter."
-read botname
-
-# create footers
-if [ botname == "" ]
-then
-    echo "🔁 Retweet for awareness" > footer.txt
-    echo "" >> footer.txt
-    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer.txt
-
-    cat footer.txt > footer_verbose.txt
-else
-    echo "🔁 Retweet for awareness" > footer.txt
-    echo "" >> footer.txt
-    
-    cat footer.txt > footer_verbose.txt
-
-    echo "🔎 @$botname for details" >> footer.txt
-    echo "" >> footer.txt
-
-    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer.txt
-    echo -n "#coronavirus #COVID19 #2019nCoV" >> footer_verbose.txt
-fi
+echo "🔁Please retweet" > footer.txt
+echo "" > footer.txt
+echo -n "#COVID19" > footer.txt
+cat footer.txt > footer_verbose.txt
 
 # create nCoV.sh
 make_launcher "nCoV.sh" "nCoV.py"

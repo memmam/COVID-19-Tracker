@@ -1,4 +1,4 @@
-# COVID-19 Tracker v6.0-b
+# COVID-19 Tracker v6.0-b1
 Bot for posting information on spread of Coronavirus Disease 2019 (COVID-19) to Twitter and Discord. The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
 # NOTICES
@@ -29,7 +29,7 @@ access_token_verbose = ''
 access_token_secret_verbose = ''
 ```
 
-3. Run `Setup-nCoV.sh`. It will prompt you for the name of your second account for verbose output. If you are only using one account, just press enter. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
+3. Run `Setup-nCoV.sh`. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
 
 4. This bot can also post to Discord. In your Discord server settings, generate webhooks for whatever channels you want the bot to post in, and place each webhook URL on its own line in a `webhooks.txt` file.
 
