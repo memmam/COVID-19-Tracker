@@ -1,11 +1,7 @@
-# COVID-19 Tracker v4.2-b1
-Twitter bot for posting information on spread of Coronavirus Disease 2019 (COVID-19). The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
+# COVID-19 Tracker v6.0-b
+Bot for posting information on spread of Coronavirus Disease 2019 (COVID-19) to Twitter and Discord. The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
 # NOTICES
-
-In process of switching all references to '2019-nCoV' to 'COVID-19'.
-
-Please note the Tencent QQ News scraping has been removed in favor of an 'active cases' count.  
 
 The Google Sheets access for Johns Hopkins' data has been REMOVED. The `gspread` and `oauth2client` libraries (and `credentials.json` requirement) are no longer needed, and verbose output has been stubbed for the time being. This has been done in favor of Johns Hopkins' new data posting method, a collection of `.csv` files stored on [this](https://github.com/CSSEGISandData/COVID-19) GitHub repo.
 
@@ -35,6 +31,8 @@ access_token_secret_verbose = ''
 
 3. Run `Setup-nCoV.sh`. It will prompt you for the name of your second account for verbose output. If you are only using one account, just press enter. This will create your Python 3 virtual environment, install all required packages, create the launcher scripts to run the program without having to activate the virtual environment, create `footer.txt` and `footer_verbose.txt` (which contains the text and hashtags at the bottom of every tweet) with default values, create the cron job for the bot to run automatically, and test the script for you in notweet mode.
 
+4. This bot can also post to Discord. In your Discord server settings, generate webhooks for whatever channels you want the bot to post in, and place each webhook URL on its own line in a `webhooks.txt` file.
+
 Please note the bot will automatically overwrite your Twitter bio with a 'last updated' statistic. If you have a bio you want to use in addition to this, please create 'bio_top.txt' and 'bio_bottom.txt' files containing your desired information. The last updated count will appear between the text contained in these two files, both of which are optional.
 
 You're done! The bot should now be working.
@@ -51,59 +49,27 @@ Tweets are time-and-datestamped based on time of data being fetched and posted t
 Tweets are in the following format:
 
 ```
-⚠️ Coronavirus Update ⚠️
+⚠️#Coronavirus Update⚠️
 
-🕕 YYYY-MM-DD HH:MM UTC
+🕛YYYY-MM-DD ##H UTC
 
-☣️ NN,NNN,NNN cases (+NN,NNN)
-🏥 NN,NNN,NNN active (+NN,NNN)
-💀 NN,NNN,NNN dead (+NN,NNN)
-✅ NN,NNN,NNN recovered (+NN,NNN)
+☣️NNN,NNN (+N,NNN)
+🏥NNN,NNN active (+N,NNN)
+💀NNN,NNN dead (+N,NNN)
+✅NNN,NNN recovered (+N,NNN)
 
-🔁 Retweet for awareness
+Outside China:
+☣️NNN,NNN (+N,NNN)
+🏥NNN,NNN active (+N,NNN)
+💀NNN,NNN dead (+N,NNN)
+✅NNN,NNN recovered (+N,NNN)
 
-#coronavirus #COVID19 #2019nCoV
+🔁Please retweet
+
+#COVID19
 ```
 
-If you are using a second account for verbose data, between the last two lines is the line `🔎 @{second_bot} for details`
-
-Verbose tweets are in the following formats:
-
-```
-⚠️ Coronavirus Update ⚠️
-
-🕕 YYYY-MM-DD HH:MM UTC
-
-🌐 COVID-19 spotted for the first time in 1234567890123456789012345678
-
-☣️ NN,NNN,NNN cases
-💀 NN,NNN,NNN dead
-✅ NN,NNN,NNN recovered
-
-🗓️ Updated 2/7/20 16:33
-
-🔁 Retweet for awareness
-
-#coronavirus #COVID19 #2019nCoV
-```
-
-```
-⚠️ Coronavirus Update ⚠️
-
-🕕 YYYY-MM-DD HH:MM UTC
-
-🌐 Update for 1234567890123456789012345678
-
-☣️ NN,NNN,NNN cases (+N,NNN)
-💀 NN,NNN,NNN dead (+N,NNN)
-✅ NN,NNN,NNN recovered (+N,NNN)
-
-🗓️ Updated 2/7/20 16:33
-
-🔁 Retweet for awareness
-
-#coronavirus #COVID19 #2019nCoV
-```
+Verbose tweet functionality is currently not fully implemented, format pending.
 
 This bot will, if functioning normally, check for new data once every two hours, and only post when there is new data. If any problems arise, please report them to @Math#7777 on Discord.
 
@@ -111,13 +77,13 @@ This bot will, if functioning normally, check for new data once every two hours,
 
 Credit to [@Yuu6883](https://github.com/Yuu6883) for helping write the web scraping code.
 
-Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format.
+Credit to users on the [Weaponsandstuff93](https://www.youtube.com/channel/UCAbwEStxHetWMGvaq9FIF_w) Discord server for helping devise the post format in early versions of the bot.
 
-Credit to Ensheng Dong ([@Energeticodefish](https://github.com/enshengdong) on Github) from the Center for Systems Science and Engineering at Johns Hopkins University for replying to my emails about Google Sheets access.
+Credit to Ensheng "Frank" Dong ([@Energeticodefish](https://github.com/enshengdong) on Github) from the Center for Systems Science and Engineering at Johns Hopkins University for replying to my numerous emails concerning the JHU CSSE tracker.
 
 Credit to the CDC for the official instance's Twitter profile picture.
 
-This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/), [Tweepy](https://www.tweepy.org/), and [gspread](https://github.com/burnash/gspread) libraries.
+This bot is powered by Python 3 and the [Requests](https://requests.readthedocs.io/en/master/), [Tweepy](https://www.tweepy.org/), [pandas](https://pandas.pydata.org/), and [discord-webhook](https://github.com/lovvskillz/python-discord-webhook) libraries.
 
 Data tracked by this bot is Copyright 2020 Johns Hopkins University.
 

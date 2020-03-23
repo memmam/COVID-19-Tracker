@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v4.2-b1
+# Coronavirus Disease Tracker v6.0-b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-19
+# Last updated: 2020-03-22
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #

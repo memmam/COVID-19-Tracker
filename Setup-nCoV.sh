@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Coronavirus Disease Tracker v4.2-b1
+# Coronavirus Disease Tracker v6.0-b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-19
+# Last updated: 2020-03-22
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
@@ -62,7 +62,7 @@ make_launcher "nCoV-notweet-verbose.sh" "nCoV.py --notweet --verbose"
 python3 -m venv venv
 source ./venv/bin/activate
 pip install --upgrade pip
-pip install pandas requests==2.22.0 tweepy==3.8.0
+pip install pandas==1.0.1 requests==2.22.0 tweepy==3.8.0 discord-webhook==0.7.1
 
 # create cronjobs
 mkdir cron_hist
@@ -71,7 +71,7 @@ cmd="`pwd`/nCoV.sh >> `pwd`/cron_reports.txt"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
-cmd="mv `pwd`/cron_reports.txt \"`pwd`/cron_hist/cron_\`date +%F\`.txt\""
+cmd="mv `pwd`/cron_reports.txt \"`pwd`/cron_hist/\`date +\%F\`.txt\""
 job="0 0 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 

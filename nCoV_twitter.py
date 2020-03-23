@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v4.2-b1
+# Coronavirus Disease Tracker v6.0-b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-19
+# Last updated: 2020-03-22
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
 # Uses Requests, Tweepy, and pandas libraries
 #
 # File: nCoV_twitter.py
-# Purpose: Methods for nCoV.py that use Twitter API
+# Purpose: Methods for nCoV.py that use Twitter and Discord APIs
 
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
@@ -83,7 +83,6 @@ def output(send_flag, api, tweet_list, stats_discord, date_discord, tweet_data, 
 
             webhook_output = f"⚠️   Coronavirus Update   ⚠️\n\n{stats_discord}\n\n{date_discord}"
             print(webhook_output)
-
     except:
         print("No webhooks set! Skipping Discord output.")
 

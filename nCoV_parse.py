@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v4.2-b1
+# Coronavirus Disease Tracker v6.0-b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-19
+# Last updated: 2020-03-22
 #
 # A Twitter bot for posting information on the spread of the COVID-19 outbreak
 #
@@ -86,50 +86,56 @@ def build_stats(send_flag, api, datecode, datecode_hour, hour):
         stats_twitter = f"{stats_twitter}"
 
     # Construct statistics for Discord
-    stats_discord = f"Worldwide:\n☣️ {jh_total:,}"
-    if diff_arr[0] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[0]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}🏥 {jh_total - jh_dead - jh_recovered:,} active"
-    if diff_arr[1] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[1]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}💀 {jh_dead:,} dead"
-    if diff_arr[2] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[2]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}✅ {jh_recovered:,} recovered"
-    if diff_arr[3] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[3]:+,})"
-    else:
-        stats_discord = f"{stats_discord}"
+    try:
+        with open ("webhooks.txt", "r") as webhook_file:
+            webhook_file.close()
+        stats_discord = f"Worldwide:\n☣️ {jh_total:,}"
+        if diff_arr[0] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[0]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}🏥 {jh_total - jh_dead - jh_recovered:,} active"
+        if diff_arr[1] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[1]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}💀 {jh_dead:,} dead"
+        if diff_arr[2] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[2]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}✅ {jh_recovered:,} recovered"
+        if diff_arr[3] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[3]:+,})"
+        else:
+            stats_discord = f"{stats_discord}"
 
-    stats_discord = f"{stats_discord}\n\nOutside China:\n☣️ {jh_total - jh_total_cn:,}"
-    if diff_arr[0] - diff_arr[4] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[0] - diff_arr[4]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}🏥 {(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
-    if diff_arr[1] - diff_arr[5] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[1] - diff_arr[5]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}💀 {jh_dead - jh_dead_cn:,} dead"
-    if diff_arr[2] - diff_arr[6] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[2] - diff_arr[6]:+,})\n"
-    else:
-        stats_discord = f"{stats_discord}\n"
-    stats_discord = f"{stats_discord}✅ {jh_recovered - jh_recovered_cn:,} recovered"
-    if diff_arr[3] - diff_arr[7] != 0:
-        stats_discord = f"{stats_discord} ({diff_arr[3] - diff_arr[7]:+,})"
-    else:
-        stats_discord = f"{stats_discord}"
+        stats_discord = f"{stats_discord}\n\nOutside China:\n☣️ {jh_total - jh_total_cn:,}"
+        if diff_arr[0] - diff_arr[4] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[0] - diff_arr[4]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}🏥 {(jh_total - jh_dead - jh_recovered) - (jh_total_cn - jh_dead_cn - jh_recovered_cn):,} active"
+        if diff_arr[1] - diff_arr[5] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[1] - diff_arr[5]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}💀 {jh_dead - jh_dead_cn:,} dead"
+        if diff_arr[2] - diff_arr[6] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[2] - diff_arr[6]:+,})\n"
+        else:
+            stats_discord = f"{stats_discord}\n"
+        stats_discord = f"{stats_discord}✅ {jh_recovered - jh_recovered_cn:,} recovered"
+        if diff_arr[3] - diff_arr[7] != 0:
+            stats_discord = f"{stats_discord} ({diff_arr[3] - diff_arr[7]:+,})"
+        else:
+            stats_discord = f"{stats_discord}"
 
-    # Discord datestamp
-    date_discord = f"{clocks[hour]} Last Updated: {datecode}"
+        # Discord datestamp
+        date_discord = f"{clocks[hour]} Last Updated: {datecode}"
+    except:
+        stats_discord = ""
+        date_discord = ""
 
     # Define footer
     try:

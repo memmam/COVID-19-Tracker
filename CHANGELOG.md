@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0-bx:
+- 6.0-b: Added Discord webhook functionality, FINALLY fixed output log archiving
+
+## 5.0-bx:
+- 5.0-b: Added 'outside China' count, total rewrite of tweet format (code pushed to GitHub but not formally 'released' as a specific build)
+
 ## 4.2-beta-x:
 - 4.2-beta: Added 'last updated' output to Twitter bio
 - 4.2-b1: Major changes to Twitter-related logic to prevent bugs caused by Twitter being over-capacity.
