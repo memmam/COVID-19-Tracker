@@ -1,5 +1,6 @@
 certifi==2019.11.28
 chardet==3.0.4
+discord-webhook==0.7.1
 idna==2.8
 numpy==1.18.1
 oauthlib==3.1.0
