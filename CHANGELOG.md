@@ -1,6 +1,8 @@
 # Changelog
 
-## 10.5:
+## 10.5x:
+- 10.5a
+    - Slight format fix to Setup-nCoV.sh, otherwise identical
 - 10.5: CUMULATIVE UPDATE rolling up several versions of unreleased updates
     - 10.5:
         - Code is now fully commented
