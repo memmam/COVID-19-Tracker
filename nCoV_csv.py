@@ -13,15 +13,15 @@
 # Purpose: CSV processing and graph generation for Coronavirus Disease Tracker
 
 # For handling data for graphs
-import pandas
-import io
+from pandas import concat, Index, read_csv, set_option
+from io import StringIO
 from datetime import date
 from datetime import datetime
 
 # For generating graphs
-import matplotlib.spines as spines
-import matplotlib.pyplot as plt
-import matplotlib.ticker as tick
+from matplotlib.spines import Spine
+from matplotlib.pyplot import grid, plot, legend, rcParams, figure, close
+from matplotlib.ticker import FuncFormatter, AutoMinorLocator, AutoLocator
 from matplotlib import dates
 
 # Process CSV dataframes to return a dataframe for a specific country or set of
@@ -87,11 +87,11 @@ def process_csv(confirmed_df, dead_df, recovered_df, jh_dict, datestring,
     # Concatenate confirmed, dead, and recovered. Cases of multiple countries
     # will need to be transposed due to pandas auto-transpose behavior
     if two_transpose == True:
-        df_aggregate = pandas.concat([confirmed_df_aggregate, \
+        df_aggregate = concat([confirmed_df_aggregate, \
                        dead_df_aggregate, recovered_df_aggregate], axis=1)
         df_aggregate = df_aggregate.transpose()
     else:
-        df_aggregate = pandas.concat([confirmed_df_aggregate, \
+        df_aggregate = concat([confirmed_df_aggregate, \
                        dead_df_aggregate, recovered_df_aggregate], axis=0)
     df_aggregate.index = ['Confirmed', 'Deaths', 'Recovered']
 
@@ -99,7 +99,7 @@ def process_csv(confirmed_df, dead_df, recovered_df, jh_dict, datestring,
     df_aggregate = df_aggregate.drop(['Country/Region'], axis=1)
 
     # Convert dates in labels from strings to datetimes
-    df_aggregate.columns = pandas.Index(map(lambda x : datetime.strptime \
+    df_aggregate.columns = Index(map(lambda x : datetime.strptime \
                            (x,'%m/%d/%y'), df_aggregate.columns))
 
     # Dataframe is sideways, transpose it
@@ -128,16 +128,16 @@ def graph(df_aggregate, label_tail, fig, i):
     ax.set_facecolor('mistyrose')
 
     # Grid color
-    plt.grid(True, color='lightcoral')
+    grid(True, color='lightcoral')
 
     # Graph sides color
     for child in ax.get_children():
-        if isinstance(child, spines.Spine):
+        if isinstance(child, Spine):
             child.set_color('#CD5C5C')
 
     # Turn off scientific notation, give numbers commas, format dates
     ax.get_yaxis().get_major_formatter().set_scientific(False)
-    ax.get_yaxis().set_major_formatter(tick.FuncFormatter(
+    ax.get_yaxis().set_major_formatter(FuncFormatter(
         lambda x, p: format(int(x), ',')))
     ax.get_xaxis().set_major_formatter(dates.DateFormatter('%-m/%-d'))
 
@@ -154,18 +154,18 @@ def graph(df_aggregate, label_tail, fig, i):
 
     # Create major and minor ticks: x-axis by rule above, y-axis auto-generated
     ax.xaxis.set_minor_locator(days_minor)
-    ax.yaxis.set_minor_locator(tick.AutoMinorLocator())
+    ax.yaxis.set_minor_locator(AutoMinorLocator())
     ax.xaxis.set_major_locator(days)
-    ax.yaxis.set_major_locator(tick.AutoLocator())
+    ax.yaxis.set_major_locator(AutoLocator())
 
     # Graph data lines
-    plt.plot( 'Confirmed', data=df_aggregate, alpha=0.65)
-    plt.plot( 'Active', data=df_aggregate, alpha=0.65)
-    plt.plot( 'Deaths', data=df_aggregate, color='tab:red', alpha=0.65)
-    plt.plot( 'Recovered', data=df_aggregate, color='tab:green', alpha=0.65)
+    plot( 'Confirmed', data=df_aggregate, alpha=0.65)
+    plot( 'Active', data=df_aggregate, alpha=0.65)
+    plot( 'Deaths', data=df_aggregate, color='tab:red', alpha=0.65)
+    plot( 'Recovered', data=df_aggregate, color='tab:green', alpha=0.65)
 
     # Legend colors
-    plt.legend(facecolor='lavenderblush', edgecolor='#f0a0a0')
+    legend(facecolor='lavenderblush', edgecolor='#f0a0a0')
 
     return ax
 
@@ -174,11 +174,11 @@ def graph(df_aggregate, label_tail, fig, i):
 def generate_graphs(jh_csv_dict, jh_dict, header_arr):
     # Convert dictionary of CSV get requests into confirmed, dead, and
     # recovered dataframes
-    confirmed_df = pandas.read_csv(io.StringIO(jh_csv_dict['Confirmed'] \
+    confirmed_df = read_csv(StringIO(jh_csv_dict['Confirmed'] \
                    .decode('utf-8')))
-    dead_df = pandas.read_csv(io.StringIO(jh_csv_dict['Deaths'].decode \
+    dead_df = read_csv(StringIO(jh_csv_dict['Deaths'].decode \
               ('utf-8')))
-    recovered_df = pandas.read_csv(io.StringIO(jh_csv_dict['Recovered'] \
+    recovered_df = read_csv(StringIO(jh_csv_dict['Recovered'] \
                    .decode('utf-8')))
 
     # Sum each country into a single column
@@ -196,10 +196,10 @@ def generate_graphs(jh_csv_dict, jh_dict, header_arr):
 
     # Set text color for graphs; this needs to be here and not inside the graph
     # generator or else the first graph's text is black
-    plt.rcParams['text.color'] = '#CD5C5C'
-    plt.rcParams['axes.labelcolor'] = '#CD5C5C'
-    plt.rcParams['xtick.color'] = '#CD5C5C'
-    plt.rcParams['ytick.color'] = '#CD5C5C'
+    rcParams['text.color'] = '#CD5C5C'
+    rcParams['axes.labelcolor'] = '#CD5C5C'
+    rcParams['xtick.color'] = '#CD5C5C'
+    rcParams['ytick.color'] = '#CD5C5C'
 
     # Iterate along the header array in 7-row blocks, generating
     # processed dataframes for a single country / group of countries
@@ -212,7 +212,7 @@ def generate_graphs(jh_csv_dict, jh_dict, header_arr):
             header_arr[i + 3]))
 
     # Create figure to store 3x3 graph grid
-    fig = plt.figure(9, figsize=(18, 10.275))
+    fig = figure(9, figsize=(18, 10.275))
     fig.patch.set_alpha(1)
     fig.patch.set_facecolor('mistyrose')
 
@@ -243,10 +243,10 @@ def generate_graphs(jh_csv_dict, jh_dict, header_arr):
     # Save graph as image and close dataframe to free memory
     fig.savefig("graph.png", facecolor=fig.get_facecolor(), edgecolor='none', \
                 dpi=375)
-    plt.close()
+    close()
 
     # Logger output: generated dataframes
-    pandas.set_option("display.max_rows", None)
+    set_option("display.max_rows", None)
     for i in range(0,9):
         print(processed_arr[i])
     print("\n")

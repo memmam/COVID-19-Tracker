@@ -13,7 +13,10 @@
 # Purpose: Main driver for Coronavirus Disease Tracker
 
 # Import for command line arguments
-import argparse
+from argparse import ArgumentParser
+
+# Import for creating UTC datestamp/timestamp
+from time import gmtime
 
 # Import nCoV_twitter methods (also imports time, credentials, and Tweepy)
 from nCoV_twitter import *
@@ -28,7 +31,7 @@ from nCoV_csv import *
 # Main method
 def main():
     # Command line args
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument('--notweet', help='Do not post a tweet', \
                         action="store_true")
     args = parser.parse_args()
@@ -41,7 +44,7 @@ def main():
                           access_token_secret)
 
     # Get current UTC time
-    utctime = time.gmtime()
+    utctime = gmtime()
     datecode = (
         f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} "
         f"{utctime.tm_hour:02}:{utctime.tm_min:02} UTC")

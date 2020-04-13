@@ -14,8 +14,10 @@
 
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
-import time
-import random
+
+# Import to allow for random delay when attempting resend
+from time import sleep
+from random import randint
 
 # Import Discord webhook support
 from discord_webhook import DiscordWebhook, DiscordEmbed
@@ -43,7 +45,7 @@ def output(
     # Send tweet
     if send_flag == True:
         # If an exception is thrown, try a total of three times; if it fails
-        # all three times, raise excewption
+        # all three times, raise exception
         for attempt_no in range(0,4):
             try:
                 # Add graphs to tweet
@@ -64,7 +66,7 @@ def output(
             except:
                 if attempt_no < 3:
                     print("Retrying")
-                    time.sleep(random.randint(15,30))
+                    sleep(randint(15,30))
                 else:
                     raise error
         
@@ -167,7 +169,7 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
             except:
                 if attempt_no < 3:
                     print("Retrying")
-                    time.sleep(random.randint(15,30))
+                    sleep(randint(15,30))
                 else:
                     raise error
 

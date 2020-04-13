@@ -13,16 +13,13 @@
 # Purpose: Methods for nCoV.py involving HTTP requests
 
 # For Johns Hopkins web requests
-import requests
+from requests import get
 
 # To process requested data
-import json
+from json import loads
 
 # Import Counter for summing EU dicts
 from collections import Counter
-
-#CSV stuff
-import csv
 
 # Fetch Johns Hopkins CSSE data
 def get_jh():
@@ -37,7 +34,7 @@ def get_jh():
     # Get Johns Hopkins total
     for attempt_no in range(1,3):
         try:
-            jh_total_res = requests.get \
+            jh_total_res = get \
                 (('https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/se'
                   'rvices/ncov_cases/FeatureServer/1/query?f=json&where=1%3D1&r'
                   'eturnGeometry=false&spatialRel=esriSpatialRelIntersects&outF'
@@ -55,7 +52,7 @@ def get_jh():
     # Get Johns Hopkins deaths
     for attempt_no in range(1,3):
         try:
-            jh_dead_res = requests.get \
+            jh_dead_res = get \
                 (('https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/se'
                   'rvices/ncov_cases/FeatureServer/1/query?f=json&where=1%3D1&r'
                   'eturnGeometry=false&spatialRel=esriSpatialRelIntersects&outF'
@@ -73,7 +70,7 @@ def get_jh():
     # Get Johns Hopkins recoveries
     for attempt_no in range(1,3):
         try:
-            jh_recovered_res = requests.get \
+            jh_recovered_res = get \
                 (('https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/se'
                   'rvices/ncov_cases/FeatureServer/1/query?f=json&where=1%3D1&r'
                   'eturnGeometry=false&spatialRel=esriSpatialRelIntersects&outF'
@@ -91,7 +88,7 @@ def get_jh():
     # Get Johns Hopkins totals per-country
     for attempt_no in range(1,3):
         try:
-            jh_countries_res = requests.get \
+            jh_countries_res = get \
                 (('https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/se'
                   'rvices/ncov_cases/FeatureServer/2/query?f=json&where=1%3D1&r'
                   'eturnGeometry=false&spatialRel=esriSpatialRelIntersects&outF'
@@ -107,7 +104,7 @@ def get_jh():
     # Get Johns Hopkins total time series CSV
     for attempt_no in range(1,3):
         try:
-            jh_total_csv_res = requests.get \
+            jh_total_csv_res = get \
                 (('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/ma'
                   'ster/csse_covid_19_data/csse_covid_19_time_series/time_serie'
                   's_covid19_confirmed_global.csv'),headers=header, timeout=15)
@@ -121,7 +118,7 @@ def get_jh():
     # Get Johns Hopkins deaths time series CSV
     for attempt_no in range(1,3):
         try:
-            jh_dead_csv_res = requests.get \
+            jh_dead_csv_res = get \
                 (('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/ma'
                   'ster/csse_covid_19_data/csse_covid_19_time_series/time_serie'
                   's_covid19_deaths_global.csv'),headers=header, timeout=15)
@@ -135,7 +132,7 @@ def get_jh():
     # Get Johns Hopkins recoveries time series CSV
     for attempt_no in range(1,3):
         try:
-            jh_recovered_csv_res = requests.get \
+            jh_recovered_csv_res = get \
                 (('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/ma'
                   'ster/csse_covid_19_data/csse_covid_19_time_series/time_serie'
                   's_covid19_recovered_global.csv'),headers=header, timeout=15)
@@ -147,12 +144,12 @@ def get_jh():
                 raise error
 
     # Load Johns Hopkins world totals as JSON
-    jh_total_json = json.loads(jh_total_res.content.decode())
-    jh_dead_json = json.loads(jh_dead_res.content.decode())
-    jh_recovered_json = json.loads(jh_recovered_res.content.decode())
+    jh_total_json = loads(jh_total_res.content.decode())
+    jh_dead_json = loads(jh_dead_res.content.decode())
+    jh_recovered_json = loads(jh_recovered_res.content.decode())
 
     # Load Johns Hopkins totals per-country as JSON
-    jh_countries_json = json.loads(jh_countries_res.content.decode())
+    jh_countries_json = loads(jh_countries_res.content.decode())
     jh_countries = jh_countries_json['features']
 
     countries_length = len(jh_countries)
