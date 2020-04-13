@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v10.6
+# Coronavirus Disease Tracker v10.7
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-04-13
 #
@@ -19,7 +19,7 @@ from credentials import *
 from time import sleep
 from random import randint
 
-# Import Discord webhook support
+# Import Discord webhook and embed support
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 # Get Twitter API access

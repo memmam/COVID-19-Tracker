@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Coronavirus Disease Tracker v10.6
+# Coronavirus Disease Tracker v10.7
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-04-13
 #

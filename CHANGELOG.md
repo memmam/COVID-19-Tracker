@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.7:
+- Reduced import statements to bare minimum needed for functionality
+    - I know this isn't best practices due to the risk of namespace collisions, but it shaves like 7 seconds off runtime and nothing broke
+
 ## 10.6:
 - Changes to Setup-nCoV.sh to prevent cronjob mail spam
 
