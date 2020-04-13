@@ -1,5 +1,8 @@
 # Changelog
 
+## 10.6:
+- Changes to Setup-nCoV.sh to prevent cronjob mail spam
+
 ## 10.5x:
 - 10.5a
     - Slight format fix to Setup-nCoV.sh, otherwise identical
