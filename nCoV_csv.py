@@ -1,6 +1,6 @@
 #!/usr/bin/env/python3
 
-# Coronavirus Disease Tracker v10.5a
+# Coronavirus Disease Tracker v10.6
 # By Math Morissette (@TheYadda on Github)
 # Last updated: 2020-04-13
 #
