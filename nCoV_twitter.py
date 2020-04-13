@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v6.0-b1
+# Coronavirus Disease Tracker v10.5
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-23
+# Last updated: 2020-04-13
 #
-# A Twitter bot for posting information on the spread of the COVID-19 outbreak
+# A Twitter/Discord bot for posting information on the spread of the COVID-19
+# outbreak
 #
-# Uses Requests, Tweepy, and pandas libraries
+# Uses Requests, Tweepy, pandas, discord-webhook, and matplotlib libraries
 #
 # File: nCoV_twitter.py
 # Purpose: Methods for nCoV.py that use Twitter and Discord APIs
@@ -32,95 +33,108 @@ def get_twitter_api(key, secret, token, token_secret):
     return api
 
 # Send nCoV tweets
-def output(send_flag, api, tweet_list, stats_discord, date_discord, tweet_data, datecode, hour):
+def output(
+    send_flag, api, tweet, stats_discord, date_discord, tweet_data, datecode, \
+    hour, update_arr):
 
-    clocks = ["🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚", "🕛", "🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"]
+    # Logger output: tweet
+    print(f"Tweet:\n{tweet}\n")
 
-    # Prepare for list output
-    length_i = len(tweet_list)
-
-    # Output master tweet
-    print(f"\n{tweet_list[0]}")
-
-    # Send master tweet
+    # Send tweet
     if send_flag == True:
-        for attempt_no in range(1,3):
+        # If an exception is thrown, try a total of three times; if it fails
+        # all three times, raise excewption
+        for attempt_no in range(0,4):
             try:
-                master_tweet = api.update_with_media("corona.png",status=tweet_list[0])
-                with open ("prev_nums.txt", "w") as tweet_file:
-                    tweet_file.write(tweet_data)
+                # Add graphs to tweet
+                filename = 'graph.png'
+                media_ids = []
+                res = api.media_upload(filename)
+                media_ids.append(res.media_id)
+
+                # Actually send tweet
+                tweet_obj = api.update_status(status=tweet, \
+                            media_ids=media_ids, tweet_mode='extended')
+
+                # Write updated config file
+                with open ("config.txt", "w") as tweet_file:
+                    tweet_file.write("\n".join(map(str, update_arr)))
                     tweet_file.close()
                 break
             except:
-                if attempt_no <= 3:
+                if attempt_no < 3:
                     print("Retrying")
-                    sleep(random.randint(15,30))
+                    time.sleep(random.randint(15,30))
                 else:
                     raise error
-        lastcheckedupdate(clocks[hour], send_flag, api, datecode)
+        
+        # Update time last checked per Twitter profile
+        lastcheckedupdate(tweet[0], send_flag, api, datecode)
 
-    try:
-        with open ("webhooks.txt", "r") as webhook_file:
-            webhook_urls = webhook_file.readlines()
-            webhook_file.close()
+    # Send Discord embeds, if webhooks file exists
+    # Otherwise, skip Discord output
+    with open ("webhooks.txt", "r") as webhook_file:
+        webhook_urls = webhook_file.readlines()
+        webhook_file.close()
 
-            embed = DiscordEmbed(description=stats_discord, color=16737792)
-            embed.set_footer(text=date_discord)
+        # Emoji translation key at bottom of embed
+        emojikey = "😷Total 🏥Active 💀Dead 👍Recovered"
 
-            try:
-                embed.set_author(name='⚠️ Coronavirus Update ⚠️', url=f"https://twitter.com/{master_tweet.user.screen_name}/status/{master_tweet.id}")
-            except:
-                embed.set_author(name='⚠️ Coronavirus Update ⚠️', url=f"https://twitter.com/{api.me().screen_name}")
+        # Create embed and populate it with case data
+        embed = DiscordEmbed(color=16737792)
+        for key in stats_discord:
+            embed.add_embed_field(
+                name=key, value=stats_discord[key], inline=True)
+        embed.set_footer(text=f"{emojikey}\n{date_discord}")
 
-            for i in range(len(webhook_urls)):
-                webhook_urls[i] = webhook_urls[i].replace("\n", "")
-
-            webhook = DiscordWebhook(url=webhook_urls)
-            webhook.add_embed(embed)
-
-            if send_flag == True:
-                response = webhook.execute()
-
-            webhook_output = f"⚠️   Coronavirus Update   ⚠️\n\n{stats_discord}\n\n{date_discord}"
-            print(webhook_output)
-    except:
-        print("No webhooks set! Skipping Discord output.")
-
-    iterations = 0
-    sec_ctr = 0
-
-    # Output and post replies in list
-    for i in range(1, length_i):
-        sleep_secs = random.randint(20,36)
-        iterations = iterations + 1
-        sec_ctr = sec_ctr + (sleep_secs)
-        time.sleep(sleep_secs)
-
-        if(iterations == 25 and sec_ctr < 900):
-            sleep(900 - sec_ctr)
-            sec_ctr = 0
-            iterations = 0
-
-        # Test print / terminal output
-        print(f"\n{tweet_list[i]}")
-
-        # Send tweets
+        # If tweet was sent and embeds are being sent, attach image from it
         if send_flag == True:
-            for attempt_no in range(1,3):
-                try:
-                    master_tweet = api.update_status("@" + master_tweet.user.screen_name + "\n\n" + tweet_list[i], master_tweet.id)
-                except:
-                    if attempt_no <= 3:
-                        print("Retrying")
-                        sleep(random.randint(15,30))
-                    else:
-                        raise error
-            lastcheckedupdate(clocks[hour], send_flag, api, datecode)
+            image_url = tweet_obj.entities['media'][0]['media_url']
+            try:
+                embed.set_image(url=f"{image_url}?format=png&name=4096x4096")
+            except:
+                pass
 
+        # Attach tweet to embed name
+        #
+        # If no tweet was sent but script somehow proceeded (shouldn't be
+        # possible), attach twitter account to embed name instead
+        try:
+            embed.set_author(
+                name='⚠️ Coronavirus Update ⚠️', url=(f"https://twitter.com/"
+                    f"{tweet_obj.user.screen_name}/status/"
+                    f"{tweet_obj.id}"))
+        except:
+            embed.set_author(
+                name='⚠️ Coronavirus Update ⚠️', url=(f"https://twitter.com/"
+                f"{api.me().screen_name}"))
+
+        # Scrub newlines from webhook URLs
+        for i in range(len(webhook_urls)):
+            webhook_urls[i] = webhook_urls[i].replace("\n", "")
+
+        # Create webhook with given username and avatar, and add embed to it
+        webhook = DiscordWebhook(url=webhook_urls, username=('Coronavirus '
+            'Disease Tracker'), avatar_url=('https://pbs.twimg.com/'
+            'profile_images/1223447558615265282/bACVLEWU_400x400.jpg'))
+        webhook.add_embed(embed)
+
+        # Send embed
+        if send_flag == True:
+            response = webhook.execute()
+
+        # Logger output: Discord embed
+        webhook_output = f"⚠️   Coronavirus Update   ⚠️\n\n"
+        for key in stats_discord:
+            webhook_output = f"{webhook_output}{key}\n{stats_discord[key]}\n\n"
+        webhook_output = f"{webhook_output}{emojikey}\n\n{date_discord}"
+        print(f"Discord webhook:\n{webhook_output}")
+
+# Update Twitter bio with when last checked for case updates
 def lastcheckedupdate(clock, send_flag, api, datecode):
     lastupdated = f"{clock} Updated {datecode}"
 
-    # Define footer
+    # Define top of profile based on file
     try:
         with open ("bio_top.txt", "r") as top_file:
             bio_top=top_file.read()
@@ -128,6 +142,7 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
     except:
         bio_top=""
 
+    # Define bottom of profile based on file
     try:
         with open ("bio_bottom.txt", "r") as bottom_file:
             bio_bottom=bottom_file.read()
@@ -135,23 +150,26 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
     except:
         bio_bottom=""
 
+    # Create bio from top, last updated string, and bottom
     if bio_top != "":
         bio = (f"{bio_top}\n"
-        f"{lastupdated}")
-    
+        f"{lastupdated}") 
     if bio_bottom != "":
         bio = (f"{bio}\n"
         f"{bio_bottom}")
-    
+
+    # If tweet was sent, update bio saying when last updated
+    # Retry three times, if fail, raise error
     if send_flag == True:
-        for attempt_no in range(1,3):
+        for attempt_no in range(0,4):
             try:
                 api.update_profile(description=bio)
             except:
-                if attempt_no <= 3:
+                if attempt_no < 3:
                     print("Retrying")
-                    sleep(random.randint(15,30))
+                    time.sleep(random.randint(15,30))
                 else:
                     raise error
 
+    # Logger output: Last updated timestamp
     print(bio)

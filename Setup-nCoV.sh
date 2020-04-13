@@ -1,30 +1,28 @@
 #!/bin/bash
 
-# Coronavirus Disease Tracker v6.0-b1
+# Coronavirus Disease Tracker v10.5
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-03-23
+# Last updated: 2020-04-13
 #
-# A Twitter bot for posting information on the spread of the COVID-19 outbreak
+# A Twitter/Discord bot for posting information on the spread of the COVID-19
+# outbreak
 #
-# Uses Requests, Tweepy, and pandas libraries
+# Uses Requests, Tweepy, pandas, discord-webhook, and matplotlib libraries
 #
 # File: Setup-nCoV.sh
 # Purpose: Creates launcher scripts for Coronavirus Disease Tracker
 
-# launcher script function
+# launcher script maker function
 make_launcher()
 {
     echo "#!/bin/bash" > $1
     echo -n "cd " >> $1
     echo `pwd` >> $1
     echo "source ./venv/bin/activate" >> $1
-    echo "python3 $2" >> $1
+    echo "date 2>&1 | tee -a run_reports.txt" >> $1
+    echo "(time python3 $2) 2>&1 | tee -a run_reports.txt" >> $1
+    echo "echo \"\" >> run_reports.txt 2>&1" >> $1
 }
-
-echo "🔁Please retweet" > footer.txt
-echo "" > footer.txt
-echo -n "#COVID19" > footer.txt
-cat footer.txt > footer_verbose.txt
 
 # create nCoV.sh
 make_launcher "nCoV.sh" "nCoV.py"
@@ -32,31 +30,30 @@ make_launcher "nCoV.sh" "nCoV.py"
 # create nCoV-notweet.sh
 make_launcher "nCoV-notweet.sh" "nCoV.py --notweet"
 
-# create nCoV-verbose.sh
-make_launcher "nCoV-verbose.sh" "nCoV.py --verbose"
-
-# create nCoV-notweet-verbose.sh
-make_launcher "nCoV-notweet-verbose.sh" "nCoV.py --notweet --verbose"
-
 # create virtual environment and install packages
 python3 -m venv venv
 source ./venv/bin/activate
 pip install --upgrade pip
-pip install pandas==1.0.1 requests==2.22.0 tweepy==3.8.0 discord-webhook==0.7.1
+pip install pandas==1.0.1 requests==2.22.0 tweepy==3.8.0 discord-webhook==0.7.1 matplotlib==3.2.1
+
+# make directory for storing run report history
+mkdir run_hist
 
 # create cronjobs
-mkdir cron_hist
-
-cmd="`pwd`/nCoV.sh >> `pwd`/cron_reports.txt"
+# cronjob for running the bot
+cmd="`pwd`/nCoV.sh"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
-cmd="mv `pwd`/cron_reports.txt \"`pwd`/cron_hist/\`date +\%F\`.txt\""
+# cronjob for storing historical data
+cmd="mv `pwd`/run_reports.txt \"`pwd`/run_hist/\`date +\%F\`.txt\""
 job="0 0 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
 # permissions
 chmod a+x nCoV*.sh
 
-echo $'\nTesting... If the following succeeds, the bot is set up and working! If not, you likely credentials.py or credentials.json.\n'
-./nCoV-notweet-verbose.sh
+# test if working
+echo $'\nTesting... If the following succeeds, the bot is set up and working!'
+echo $'If not, you likely are missing credentials.py.'
+./nCoV-notweet.sh

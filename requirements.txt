@@ -1,10 +1,14 @@
-certifi==2019.11.28
+certifi==2020.4.5.1
 chardet==3.0.4
+cycler==0.10.0
 discord-webhook==0.7.1
 idna==2.8
-numpy==1.18.1
+kiwisolver==1.2.0
+matplotlib==3.2.1
+numpy==1.18.2
 oauthlib==3.1.0
 pandas==1.0.1
+pyparsing==2.4.7
 PySocks==1.7.1
 python-dateutil==2.8.1
 pytz==2019.3

@@ -2,7 +2,12 @@ credentials.*
 *.json
 venv
 nCoV*.sh
-*.txt
+config.txt
+bio*.txt
+run_hist/
+run_reports.txt
+webhooks.txt
 cron_logs
 __pycache__
 *test*
+*.png
