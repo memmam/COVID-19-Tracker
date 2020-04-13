@@ -29,13 +29,12 @@
     - 9.0-b:
         - Reduced code repetition by breaking out Discord, Twitter, and graph generation into functions
         - Partially implemented new, rewritten Discord webhook (now uses inline fields in embed, 10.x non-beta release will put the image inside the embed as well)
-    - 8.3-b
+    - 8.2-b
         - Discord webhook now outputs a composite graph of figures worldwide, in the US, in Canada, in the United Kingdom, in the EU, and in China (credit to JimChr - R4GN4R on StackOverflow for the code for this)
-    - 8.2-b:
-        - Added graph colors, reworked graph ticks/labels, added grid to graphs, generally cleaned up graphing code
     - 8.1-b:
+        - Added graph colors, reworked graph ticks/labels, added grid to graphs, generally cleaned up graphing code
         - Removed year from graph labels, increased graph from 'last 9 days' to 'last 12 days'
-    - 8.0-b:
+    - 8.0-b
         - Added graphs for worldwide, US, UK, and EU counts, removed code related to location-based updates, as feature is no longer on roadmap
     - 7.0-b1:
         - Replaced China with UK on Twitter output (both UK and China are retained on Discord output)
