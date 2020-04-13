@@ -35,7 +35,7 @@ python3 -m venv venv
 source ./venv/bin/activate
 pip install --upgrade pip
 pip install pandas==1.0.1 requests==2.22.0 tweepy==3.8.0 \
- discord-webhook==0.7.1 matplotlib==3.2.1
+discord-webhook==0.7.1 matplotlib==3.2.1
 
 # make directory for storing run report history
 mkdir run_hist
