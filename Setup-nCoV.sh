@@ -42,7 +42,7 @@ mkdir run_hist
 
 # create cronjobs
 # cronjob for running the bot
-cmd="`pwd`/nCoV.sh"
+cmd="`pwd`/nCoV.sh > /dev/null 2>&1"
 job="0 */2 * * * $cmd"
 ( crontab -l | grep -v -F "$cmd" ; echo "$job" ) | crontab -
 
