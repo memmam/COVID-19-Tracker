@@ -69,23 +69,23 @@ This bot also optionally can output to Discord in the form of embeds in webhook 
 ```
 ⚠️   Coronavirus Update   ⚠️
 
-🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:			
+🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:			
 😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	
 🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	
-💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		
-👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		
+💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)		
+👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)		
 
-🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:			
+🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:			
 😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	
 🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	
-💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		
-👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		
+💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)		
+👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)		
 
-🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:		🏳️ [COUNTRY NAME]:			
+🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:	🏳️ [COUNTRY NAME]:			
 😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	😷 X,XXX,XXX (+XX,XXX)	
 🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	🏥 X,XXX,XXX (+XX,XXX)	
-💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		💀 XXX,XXX (+XX,XXX)		
-👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		👍 XXX,XXX (+XX,XXX)		
+💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)	💀 XXX,XXX (+XX,XXX)		
+👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)	👍 XXX,XXX (+XX,XXX)		
 
 [IMAGE OF TIME-SERIES GRAPHS]
 
