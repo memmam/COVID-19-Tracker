@@ -25,7 +25,7 @@ access_token_secret = ''
 [DICTIONARY KEY FOR DESIRED COUNTRY]
 [OUTPUT NAME FOR COUNTRY]
 [MAXIMUM NUMBER OF DAYS TO CLIP OFF OF GRAPH]
-
+[FILTER LIST] (comma-separated keylist, for use if a 'country' is made up of multiple countries)
 0
 0
 0
