@@ -42,9 +42,10 @@
         - Removed deltas on Twitter output, changed tweet format to be even more compact to allow for a footer explaining how to read the new compact tweets
     - 7.0-b:
        - Rewrote how the bot fetches and handles JHU data, further compacted tweet, replaced 'Without China' count with US, Canada, EU, and China counts
+    - 6.0-b2:
+        - Compacted tweet format due to tweet length causing bot failure (code not formally 'released' as a specific build, pushed to GitHub as part of  release)
 
 ## 6.0-bx:
-- 6.0-b2: Compacted tweet format due to tweet length causing bot failure (code not formally 'released' as a specific build, pushed to GitHub as part of 9.1-b release)
 - 6.0-b1: Fixed Setup-nCoV.sh to use new footer format, removed Setup-nCoV.sh user input (no longer needed)
 - 6.0-b: Added Discord webhook functionality, FINALLY fixed output log archiving
 
