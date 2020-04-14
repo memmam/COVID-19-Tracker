@@ -24,7 +24,7 @@ access_token_secret = ''
 [FLAG EMOJI]
 [DICTIONARY KEY FOR DESIRED COUNTRY]
 [OUTPUT NAME FOR COUNTRY]
-[MAXIMUM NUMBER OF DAYS TO CLIP OFF OF GRAPH]
+[MINIMUM NUMBER OF DAYS TO CLIP OFF OF LEFT SIDE OF GRAPH]
 [FILTER LIST] (comma-separated keylist if a 'country' is made up of multiple countries - NOT FOR 'World')
 0
 0
