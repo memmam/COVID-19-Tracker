@@ -1,6 +1,8 @@
 # Changelog
 
 ## 10.7x:
+- 10.7a
+    - Fixed minor mistake in README.md, otherwise identical
 - 10.7
     - Reduced import statements to bare minimum needed for functionality
         - I know this isn't best practices due to the risk of namespace collisions and code readability, but it shaves like 7 seconds off runtime and nothing broke
