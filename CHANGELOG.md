@@ -1,6 +1,8 @@
 # Changelog
 
 ## 10.7x:
+- 10.7b
+    - Reverted reduced import statements; turns out this doesn't actually help anything. Lesson learned.
 - 10.7a
     - Fixed minor mistake in README.md, otherwise identical
 - 10.7
