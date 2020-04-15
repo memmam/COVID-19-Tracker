@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v10.7a
+# Coronavirus Disease Tracker v10.7b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-04-14
+# Last updated: 2020-04-15
 #
 # A Twitter/Discord bot for posting information on the spread of the COVID-19
 # outbreak
@@ -14,6 +14,7 @@
 
 # Import nCoV-parse methods for parsing Johns Hopkins data
 from nCoV_fetch import *
+from nCoV_twitter import *
 
 # Build individual report field for Discord embed
 def build_discord(c_flag, c_name, diff_arr, diff_offset, jh_dict,
@@ -201,7 +202,7 @@ def comp_nCoV(clock, send_flag, api, datecode, jh_dict):
         if i % 8 < 5:
             header_data.append(config_data[i])
 
-    # Create new config file data
+    # Create new config file dadta
     update_data = []
     length = len(header_data)
     for i in range(length):

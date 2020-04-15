@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Coronavirus Disease Tracker v10.7a
+# Coronavirus Disease Tracker v10.7b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-04-14
+# Last updated: 2020-04-15
 #
 # A Twitter/Discord bot for posting information on the spread of the COVID-19
 # outbreak

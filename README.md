@@ -1,4 +1,4 @@
-# COVID-19 Tracker v10.7a
+# COVID-19 Tracker v10.7b
 Bot for posting information on spread of Coronavirus Disease 2019 (COVID-19) to Twitter and Discord. The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
 # To create your own instance:

@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-# Coronavirus Disease Tracker v10.7a
+# Coronavirus Disease Tracker v10.7b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-04-14
+# Last updated: 2020-04-15
 #
 # A Twitter/Discord bot for posting information on the spread of the COVID-19
 # outbreak
@@ -15,11 +15,11 @@
 # Import our Twitter credentials and Tweepy library from credentials.py
 from credentials import *
 
-# Import to allow for random delay when attempting resend
-from time import sleep
-from random import randint
+# For generating timestamps and delay when resending
+import time
+import random
 
-# Import Discord webhook and embed support
+# Import Discord webhook support
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
 # Get Twitter API access
@@ -45,7 +45,7 @@ def output(
     # Send tweet
     if send_flag == True:
         # If an exception is thrown, try a total of three times; if it fails
-        # all three times, raise exception
+        # all three times, raise excewption
         for attempt_no in range(0,4):
             try:
                 # Add graphs to tweet
@@ -66,7 +66,7 @@ def output(
             except:
                 if attempt_no < 3:
                     print("Retrying")
-                    sleep(randint(15,30))
+                    time.sleep(random.randint(15,30))
                 else:
                     raise error
         
@@ -169,7 +169,7 @@ def lastcheckedupdate(clock, send_flag, api, datecode):
             except:
                 if attempt_no < 3:
                     print("Retrying")
-                    sleep(randint(15,30))
+                    time.sleep(random.randint(15,30))
                 else:
                     raise error
 

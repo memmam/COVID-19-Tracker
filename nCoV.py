@@ -1,8 +1,8 @@
 #!/usr/bin/env/python3
 
-# Coronavirus Disease Tracker v10.7a
+# Coronavirus Disease Tracker v10.7b
 # By Math Morissette (@TheYadda on Github)
-# Last updated: 2020-04-14
+# Last updated: 2020-04-15
 #
 # A Twitter/Discord bot for posting information on the spread of the COVID-19
 # outbreak
@@ -13,10 +13,7 @@
 # Purpose: Main driver for Coronavirus Disease Tracker
 
 # Import for command line arguments
-from argparse import ArgumentParser
-
-# Import for creating UTC datestamp/timestamp
-from time import gmtime
+import argparse
 
 # Import nCoV_twitter methods (also imports time, credentials, and Tweepy)
 from nCoV_twitter import *
@@ -31,7 +28,7 @@ from nCoV_csv import *
 # Main method
 def main():
     # Command line args
-    parser = ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('--notweet', help='Do not post a tweet', \
                         action="store_true")
     args = parser.parse_args()
@@ -44,7 +41,7 @@ def main():
                           access_token_secret)
 
     # Get current UTC time
-    utctime = gmtime()
+    utctime = time.gmtime()
     datecode = (
         f"{utctime.tm_year:04}-{utctime.tm_mon:02}-{utctime.tm_mday:02} "
         f"{utctime.tm_hour:02}:{utctime.tm_min:02} UTC")
