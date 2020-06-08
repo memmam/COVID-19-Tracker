@@ -1,3 +1,6 @@
+# ⚠️ NO LONGER MAINTAINED ⚠️
+If you can fix the bot and get it running again, I will gladly welcome a pull request, but I just do not have the cognitive bandwidth between finals, the protests, and my upcoming internship to maintain the bot now that it no longer seems to work. I apologize.
+
 # COVID-19 Tracker v10.7b
 Bot for posting information on spread of Coronavirus Disease 2019 (COVID-19) to Twitter and Discord. The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
 
