@@ -99,7 +99,7 @@ This bot also optionally can output to Discord in the form of embeds in webhook 
 
 In both cases, updates will contain graphs showing up to the last approximately 11 weeks of confirmed cases, active cases, deaths, and recoveries in your chosen countries, with a monimum bound of days set by your config file.
 
-This bot will, if functioning normally, check for new data once every two hours, and only post when there is new data. If any problems arise, please report them to @Math#7777 on Discord.
+This bot will, if functioning normally, check for new data once every two hours, and only post when there is new data. If any problems arise, please report them to @Ellie the Tinkerer#7777 on Discord.
 
 # Credits
 
