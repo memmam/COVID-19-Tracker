@@ -5,7 +5,7 @@ discord-webhook==0.7.1
 idna==2.8
 kiwisolver==1.2.0
 matplotlib==3.2.1
-numpy==1.18.2
+numpy==1.22.0
 oauthlib==3.1.0
 pandas==1.0.1
 pyparsing==2.4.7
