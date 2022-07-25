@@ -1,6 +1,14 @@
 # Changelog
 
 ## 10.7x:
+- 10.7d
+    - Removed mention of unfinished/removed 'verbose output' feature from README.md
+    - bumped version (forgot to do this for v10.7c release)
+    - No other changes, project is still no longer being maintained
+- 10.7c
+    - Maintenance release to bump urllib3 and NumPy versions for security reasons (untested but should be fine)
+    - Also updated contact information in the readme
+    - No other changes, project is still no longer being maintained
 - 10.7b
     - Reverted reduced import statements; turns out this doesn't actually help anything. Lesson learned.
 - 10.7a
