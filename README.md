@@ -1,5 +1,7 @@
 # ⚠️ NO LONGER MAINTAINED ⚠️
-If you can fix the bot and get it running again, I will gladly welcome a pull request, but I just do not have the cognitive bandwidth between finals, the protests, and my upcoming internship to maintain the bot now that it no longer seems to work. I apologize.
+~~If you can fix the bot and get it running again, I will gladly welcome a pull request, but I just do not have the cognitive bandwidth between finals, the protests, and my upcoming internship to maintain the bot now that it no longer seems to work. I apologize.~~
+
+With the closure of Twitter's free API, I no longer have the means to maintain this code even if I wanted to. Additionally, we are long past the point that COVID case statistics tracking is still important or relevant. I also have been merging in Dependabot PRs without testing them, so I'm unsure of the state of the code unless you go back to the last release build. Given all of these factors. I am archiving the repository. If you want to make your own version, you are free to fork it without fear of licensing, since the code is public domain.
 
 # COVID-19 Tracker v10.7d
 Bot for posting information on spread of Coronavirus Disease 2019 (COVID-19) to Twitter and Discord. The official instance of this bot can be found at [@COVID19Tracker](https://twitter.com/COVID19Tracker).
